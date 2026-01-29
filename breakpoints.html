@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+body {
+  margin: 0;
+  padding: 10px;
+  background: rgba(20, 20, 20, 0.92);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  user-select: none;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+  .drag-handle {
+    -webkit-app-region: drag;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-bottom: 8px;
+  }
+
+  /* ---------------- CONTROLS ---------------- */
+
+  .controls {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+    -webkit-app-region: no-drag;
+  }
+
+  select {
+    flex: 1;
+    background: #111;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 12px;
+  }
+
+  /* ---------------- TABS ---------------- */
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+    -webkit-app-region: no-drag;
+  }
+
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 4px 0;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #333;
+  }
+
+  .tab.active {
+    background: rgba(255,159,67,0.25);
+    color: #ff9f43;
+    border-color: #ff9f43;
+  }
+
+  /* ---------------- CONTENT ---------------- */
+
+.section {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0;
+  padding-bottom: 20px;
+  -webkit-app-region: no-drag;
+}
+
+  .entry {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 2px 0;
+    gap: 8px;
+  }
+.entry:hover {
+  background: rgba(255, 159, 67, 0.15);
+  font-weight: 500;
+  transition: background 0.12s ease;
+}
+.entry span {
+  white-space: nowrap;
+}
+
+.bp-subtitle {
+  color: #ff9f43;
+  position: relative;
+  margin: 6px 0 6px 0;
+  font-size: 11px;
+  opacity: 0.7;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* divider lines */
+.bp-subtitle::before,
+.bp-subtitle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+}
+
+.bp-subtitle::before {
+  left: 0;
+}
+
+.bp-subtitle::after {
+  right: 0;
+}
+
+
+#bp-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 8px;
+  padding-right: 6px;
+
+  background: rgba(255,255,255,0.02);
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+
+  -webkit-app-region: no-drag;
+}
+#bp-scroll {
+  padding-right: 10px;
+  box-sizing: border-box;
+}
+#bp-box {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  padding: 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  box-sizing: border-box;
+  padding-bottom: 14px;
+}
+
+
+.section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.section::-webkit-scrollbar-thumb {
+  background: rgba(255, 159, 67, 0.8);
+  border-radius: 4px;
+}
+
+.section::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 159, 67, 1);
+}
+.bp-block {
+  margin-bottom: 12px;
+}
+
+.bp-block:last-child {
+  margin-bottom: 0;
+}
+
+
+</style>
+</head>
+
+<body>
+
+  <div class="drag-handle">
+    <div class="title">Diablo II Breakpoints</div>
+    <div class="subtitle">Path of Diablo</div>
+  </div>
+
+  <div class="controls">
+    <select id="classSelect">
+        <option value="Amazon">Amazon</option>
+        <option value="Assassin">Assassin</option>
+        <option value="Barbarian">Barbarian</option>
+        <option value="Druid">Druid</option>
+        <option value="Necromancer">Necromancer</option>
+        <option value="Paladin">Paladin</option>
+        <option value="Sorceress">Sorceress</option>
+    </select>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="fcr">FCR</div>
+    <div class="tab" data-tab="fhr">FHR</div>
+    <div class="tab" data-tab="fbr">FBR</div>
+  </div>
+
+  <div class="section">
+    <div id="bp-scroll">
+        <div id="bp-box">
+    <!-- ================= SORCERESS ================= -->
+
+    <div class="bp-group" data-class="Sorceress" data-tab="fcr">
+      <div class="entry"><span>0%</span><span>13 Frames</span></div>
+      <div class="entry"><span>9%</span><span>12 Frames</span></div>
+      <div class="entry"><span>20%</span><span>11 Frames</span></div>
+      <div class="entry"><span>37%</span><span>10 Frames</span></div>
+      <div class="entry"><span>63%</span><span>9 Frames</span></div>
+      <div class="entry"><span>105%</span><span>8 Frames</span></div>
+      <div class="entry"><span>200%</span><span>7 Frames</span></div>
+    </div>
+
+    <div class="bp-group" data-class="Sorceress" data-tab="fhr">
+      <div class="entry"><span>0%</span><span>15 Frames</span></div>
+      <div class="entry"><span>5%</span><span>14 Frames</span></div>
+      <div class="entry"><span>9%</span><span>13 Frames</span></div>
+      <div class="entry"><span>14%</span><span>12 Frames</span></div>
+      <div class="entry"><span>20%</span><span>11 Frames</span></div>
+      <div class="entry"><span>30%</span><span>10 Frames</span></div>
+      <div class="entry"><span>42%</span><span>9 Frames</span></div>
+      <div class="entry"><span>60%</span><span>8 Frames</span></div>
+      <div class="entry"><span>86%</span><span>7 Frames</span></div>
+      <div class="entry"><span>142%</span><span>6 Frames</span></div>
+      <div class="entry"><span>280%</span><span>5 Frames</span></div>
+    </div>
+
+    <div class="bp-group" data-class="Sorceress" data-tab="fbr">
+    <div class="entry"><span>0%</span><span>9 Framess</span></div>
+    <div class="entry"><span>7%</span><span>8 Framess</span></div>
+    <div class="entry"><span>15%</span><span>7 Framess</span></div>
+    <div class="entry"><span>27%</span><span>6 Framess</span></div>
+    <div class="entry"><span>48%</span><span>5 Framess</span></div>
+    <div class="entry"><span>86%</span><span>4 Framess</span></div>
+    <div class="entry"><span>200%</span><span>3 Framess</span></div>
+    </div>
+
+
+    <!-- ================= PALADIN ================= -->
+
+    <div class="bp-group" data-class="Paladin" data-tab="fcr">
+      <div class="entry"><span>0%</span><span>15 Frames</span></div>
+      <div class="entry"><span>9%</span><span>14 Frames</span></div>
+      <div class="entry"><span>18%</span><span>13 Frames</span></div>
+      <div class="entry"><span>30%</span><span>12 Frames</span></div>
+      <div class="entry"><span>48%</span><span>11 Frames</span></div>
+      <div class="entry"><span>75%</span><span>10 Frames</span></div>
+      <div class="entry"><span>125%</span><span>9 Frames</span></div>
+    </div>
+
+    <div class="bp-group" data-class="Paladin" data-tab="fhr">
+      <div class="entry"><span>0%</span><span>9 Frames</span></div>
+      <div class="entry"><span>7%</span><span>8 Frames</span></div>
+      <div class="entry"><span>15%</span><span>7 Frames</span></div>
+      <div class="entry"><span>27%</span><span>6 Frames</span></div>
+      <div class="entry"><span>48%</span><span>5 Frames</span></div>
+      <div class="entry"><span>86%</span><span>4 Frames</span></div>
+      <div class="entry"><span>200%</span><span>3 Frames</span></div>
+    </div>
+
+    <div class="bp-group" data-class="Paladin" data-tab="fbr">
+    <div class="bp-block">
+      <div class="bp-subtitle">No Holy Freeze</div>
+      <div class="entry"><span>0%</span><span>5 Frames</span></div>
+      <div class="entry"><span>13%</span><span>4 Frames</span></div>
+      <div class="entry"><span>32%</span><span>3 Frames</span></div>
+      <div class="entry"><span>86%</span><span>2 Frames</span></div>
+      <div class="entry"><span>600%</span><span>1 Frames</span></div> 
+    </div>
+    <div class="bp-block">
+      <div class="bp-subtitle">Holy Freeze</div>
+      <div class="entry"><span>0%</span><span>2 Frames</span></div>
+      <div class="entry"><span>86%</span><span>1 Frames</span></div>
+    </div>  
+    </div>
+
+    <!-- ================= BARBARIAN ================= -->
+
+    <div class="bp-group" data-class="Barbarian" data-tab="fcr">
+      <div class="entry"><span>0%</span><span>13 Frames</span></div>
+      <div class="entry"><span>9%</span><span>12 Frames</span></div>
+      <div class="entry"><span>20%</span><span>11 Frames</span></div>
+      <div class="entry"><span>37%</span><span>10 Frames</span></div>
+      <div class="entry"><span>63%</span><span>9 Frames</span></div>
+      <div class="entry"><span>105%</span><span>8 Frames</span></div>
+      <div class="entry"><span>200%</span><span>7 Frames</span></div>
+    </div>
+
+    <div class="bp-group" data-class="Barbarian" data-tab="fhr">
+      <div class="entry"><span>0%</span><span>9 Frames</span></div>
+      <div class="entry"><span>7%</span><span>8 Frames</span></div>
+      <div class="entry"><span>15%</span><span>7 Frames</span></div>
+      <div class="entry"><span>27%</span><span>6 Frames</span></div>
+      <div class="entry"><span>48%</span><span>5 Frames</span></div>
+      <div class="entry"><span>86%</span><span>4 Frames</span></div>
+      <div class="entry"><span>200%</span><span>3 Frames</span></div>      
+    </div>
+
+    <div class="bp-group" data-class="Barbarian" data-tab="fbr">
+    <div class="entry"><span>0%</span><span>7 Framess</span></div>
+    <div class="entry"><span>9%</span><span>6 Framess</span></div>
+    <div class="entry"><span>20%</span><span>5 Framess</span></div>
+    <div class="entry"><span>42%</span><span>4 Framess</span></div>
+    <div class="entry"><span>86%</span><span>3 Framess</span></div>
+    <div class="entry"><span>200%</span><span>2 Framess</span></div>
+    </div>    
+
+    <!-- ================= ASSASSIN ================= -->
+
+    <div class="bp-group" data-class="Assassin" data-tab="fcr">
+      <div class="entry"><span>0%</span><span>16 Frames</span></div>
+      <div class="entry"><span>8%</span><span>15 Frames</span></div>
+      <div class="entry"><span>16%</span><span>14 Frames</span></div>
+      <div class="entry"><span>27%</span><span>13 Frames</span></div>
+      <div class="entry"><span>42%</span><span>12 Frames</span></div>
+      <div class="entry"><span>65%</span><span>11 Frames</span></div>
+      <div class="entry"><span>102%</span><span>10 Frames</span></div>
+      <div class="entry"><span>174%</span><span>9 Frames</span></div>      
+    </div>
+
+    <div class="bp-group" data-class="Assassin" data-tab="fhr">
+      <div class="entry"><span>0%</span><span>9 Frames</span></div>
+      <div class="entry"><span>7%</span><span>8 Frames</span></div>
+      <div class="entry"><span>15%</span><span>7 Frames</span></div>
+      <div class="entry"><span>27%</span><span>6 Frames</span></div>
+      <div class="entry"><span>48%</span><span>5 Frames</span></div>
+      <div class="entry"><span>86%</span><span>4 Frames</span></div>
+      <div class="entry"><span>200%</span><span>3 Frames</span></div>      
+    </div>
+
+    <div class="bp-group" data-class="Assassin" data-tab="fbr">
+    <div class="entry"><span>0%</span><span>5 Framess</span></div>
+    <div class="entry"><span>13%</span><span>4 Framess</span></div>
+    <div class="entry"><span>32%</span><span>3 Framess</span></div>
+    <div class="entry"><span>86%</span><span>2 Framess</span></div>
+    <div class="entry"><span>600%</span><span>1 Framess</span></div>
+    </div>     
+  
+    <!-- ================= AMAZON ================= -->
+
+    <div class="bp-group" data-class="Amazon" data-tab="fcr">
+      <div class="entry"><span>0%</span><span>19 Frames</span></div>
+      <div class="entry"><span>7%</span><span>18 Frames</span></div>
+      <div class="entry"><span>14%</span><span>17 Frames</span></div>
+      <div class="entry"><span>22%</span><span>16 Frames</span></div>
+      <div class="entry"><span>32%</span><span>15 Frames</span></div>
+      <div class="entry"><span>48%</span><span>14 Frames</span></div>
+      <div class="entry"><span>68%</span><span>13 Frames</span></div>
+      <div class="entry"><span>99%</span><span>12 Frames</span></div>    
+      <div class="entry"><span>152%</span><span>11 Frames</span></div>         
+    </div>
+
+    <div class="bp-group" data-class="Amazon" data-tab="fhr">
+      <div class="entry"><span>0%</span><span>11 Frames</span></div>
+      <div class="entry"><span>6%</span><span>10 Frames</span></div>
+      <div class="entry"><span>13%</span><span>9 Frames</span></div>
+      <div class="entry"><span>20%</span><span>8 Frames</span></div>
+      <div class="entry"><span>32%</span><span>7 Frames</span></div>
+      <div class="entry"><span>52%</span><span>6 Frames</span></div>
+      <div class="entry"><span>86%</span><span>5 Frames</span></div>
+      <div class="entry"><span>174%</span><span>4 Frames</span></div>                
+    </div>
+
+    <div class="bp-group" data-class="Amazon" data-tab="fbr">
+<div class="bp-block">
+    <div class="bp-subtitle">1-hand Swinging Weapons</div>    
+    <div class="entry"><span>0%</span><span>17 Framess</span></div>
+    <div class="entry"><span>4%</span><span>16 Framess</span></div>
+    <div class="entry"><span>6%</span><span>15 Framess</span></div>
+    <div class="entry"><span>11%</span><span>14 Framess</span></div>
+    <div class="entry"><span>15%</span><span>13 Framess</span></div>
+    <div class="entry"><span>23%</span><span>12 Framess</span></div>
+    <div class="entry"><span>29%</span><span>11 Framess</span></div>
+    <div class="entry"><span>40%</span><span>10 Framess</span></div>
+    <div class="entry"><span>56%</span><span>9 Framess</span></div>
+    <div class="entry"><span>80%</span><span>8 Framess</span></div>
+    <div class="entry"><span>120%</span><span>7 Framess</span></div>
+    <div class="entry"><span>200%</span><span>6 Framess</span></div>
+    <div class="entry"><span>480%</span><span>5 Framess</span></div>   
+</div>     
+<div class="bp-block">
+    <div class="bp-subtitle">All Other Weapons</div>    
+    <div class="entry"><span>0%</span><span>5 Framess</span></div>
+    <div class="entry"><span>13%</span><span>4 Framess</span></div>
+    <div class="entry"><span>32%</span><span>3 Framess</span></div>
+    <div class="entry"><span>86%</span><span>2 Framess</span></div>
+    <div class="entry"><span>600%</span><span>1 Framess</span></div>   
+</div>    
+    </div> 
+
+    <!-- ================= NECROMANCER ================= -->
+
+    <div class="bp-group" data-class="Necromancer" data-tab="fcr">
+<div class="bp-block">       
+      <div class="bp-subtitle">Human Form</div>   
+      <div class="entry"><span>0%</span><span>15 Frames</span></div>
+      <div class="entry"><span>9%</span><span>14 Frames</span></div>
+      <div class="entry"><span>18%</span><span>13 Frames</span></div>
+      <div class="entry"><span>30%</span><span>12 Frames</span></div>
+      <div class="entry"><span>48%</span><span>11 Frames</span></div>
+      <div class="entry"><span>75%</span><span>10 Frames</span></div>
+      <div class="entry"><span>125%</span><span>9 Frames</span></div>  
+</div> 
+<div class="bp-block">      
+      <div class="bp-subtitle">Vampire Form</div>   
+      <div class="entry"><span>0%</span><span>23 Frames</span></div>
+      <div class="entry"><span>6%</span><span>22 Frames</span></div>
+      <div class="entry"><span>11%</span><span>21 Frames</span></div>
+      <div class="entry"><span>18%</span><span>20 Frames</span></div>
+      <div class="entry"><span>24%</span><span>19 Frames</span></div>
+      <div class="entry"><span>35%</span><span>18 Frames</span></div>
+      <div class="entry"><span>48%</span><span>17 Frames</span></div>   
+      <div class="entry"><span>65%</span><span>16 Frames</span></div>
+      <div class="entry"><span>86%</span><span>15 Frames</span></div>
+      <div class="entry"><span>120%</span><span>14 Frames</span></div>
+      <div class="entry"><span>180%</span><span>13 Frames</span></div>    
+</div>              
+    </div>
+
+    <div class="bp-group" data-class="Necromancer" data-tab="fhr">
+      <div class="entry"><span>0%</span><span>13 Frames</span></div>
+      <div class="entry"><span>5%</span><span>12 Frames</span></div>
+      <div class="entry"><span>10%</span><span>11 Frames</span></div>
+      <div class="entry"><span>16%</span><span>10 Frames</span></div>
+      <div class="entry"><span>26%</span><span>9 Frames</span></div>
+      <div class="entry"><span>39%</span><span>8 Frames</span></div>
+      <div class="entry"><span>56%</span><span>7 Frames</span></div>
+      <div class="entry"><span>86%</span><span>6 Frames</span></div>
+      <div class="entry"><span>152%</span><span>5 Frames</span></div>
+      <div class="entry"><span>377%</span><span>4 Frames</span></div>              
+    </div>
+
+    <div class="bp-group" data-class="Necromancer" data-tab="fbr">
+    <div class="entry"><span>0%</span><span>11 Framess</span></div>
+    <div class="entry"><span>6%</span><span>10 Framess</span></div>
+    <div class="entry"><span>13%</span><span>9 Framess</span></div>
+    <div class="entry"><span>20%</span><span>8 Framess</span></div>
+    <div class="entry"><span>32%</span><span>7 Framess</span></div>
+    <div class="entry"><span>52%</span><span>6 Framess</span></div>
+    <div class="entry"><span>86%</span><span>5 Framess</span></div>
+    <div class="entry"><span>174%</span><span>4 Framess</span></div>
+    <div class="entry"><span>600%</span><span>3 Framess</span></div>    
+    </div>     
+
+    <!-- ================= DRUID ================= -->
+
+    <div class="bp-group" data-class="Druid" data-tab="fhr">
+<div class="bp-block">  
+    <div class="bp-subtitle">1-Hand Swinging Weapons</div>
+    <div class="entry"><span>0%</span><span>14 Frames</span></div>
+    <div class="entry"><span>3%</span><span>13 Frames</span></div>
+    <div class="entry"><span>7%</span><span>12 Frames</span></div>
+    <div class="entry"><span>13%</span><span>11 Frames</span></div>
+    <div class="entry"><span>19%</span><span>10 Frames</span></div>
+    <div class="entry"><span>29%</span><span>9 Frames</span></div>
+    <div class="entry"><span>42%</span><span>8 Frames</span></div>
+    <div class="entry"><span>63%</span><span>7 Frames</span></div>
+    <div class="entry"><span>99%</span><span>6 Frames</span></div>
+    <div class="entry"><span>174%</span><span>5 Frames</span></div>
+    <div class="entry"><span>456%</span><span>4 Frames</span></div>
+</div>    
+<div class="bp-block">  
+    <div class="bp-subtitle">All Other Weapons</div>
+    <div class="entry"><span>0%</span><span>13 Frames</span></div>
+    <div class="entry"><span>5%</span><span>12 Frames</span></div>
+    <div class="entry"><span>10%</span><span>11 Frames</span></div>
+    <div class="entry"><span>16%</span><span>10 Frames</span></div>
+    <div class="entry"><span>26%</span><span>9 Frames</span></div>
+    <div class="entry"><span>39%</span><span>8 Frames</span></div>
+    <div class="entry"><span>56%</span><span>7 Frames</span></div>
+    <div class="entry"><span>86%</span><span>6 Frames</span></div>
+    <div class="entry"><span>152%</span><span>5 Frames</span></div>
+    <div class="entry"><span>377%</span><span>4 Frames</span></div>
+</div>    
+<div class="bp-block">  
+    <div class="bp-subtitle">Wolf</div>
+    <div class="entry"><span>0%</span><span>7 Frames</span></div>
+    <div class="entry"><span>9%</span><span>6 Frames</span></div>
+    <div class="entry"><span>20%</span><span>5 Frames</span></div>
+    <div class="entry"><span>42%</span><span>4 Frames</span></div>
+    <div class="entry"><span>86%</span><span>3 Frames</span></div>
+    <div class="entry"><span>280%</span><span>2 Frames</span></div>
+</div>    
+<div class="bp-block">  
+    <div class="bp-subtitle">Bear</div>
+    <div class="entry"><span>0%</span><span>13 Frames</span></div>
+    <div class="entry"><span>5%</span><span>12 Frames</span></div>
+    <div class="entry"><span>10%</span><span>11 Frames</span></div>
+    <div class="entry"><span>16%</span><span>10 Frames</span></div>
+    <div class="entry"><span>24%</span><span>9 Frames</span></div>
+    <div class="entry"><span>37%</span><span>8 Frames</span></div>
+    <div class="entry"><span>54%</span><span>7 Frames</span></div>
+    <div class="entry"><span>86%</span><span>6 Frames</span></div>
+    <div class="entry"><span>152%</span><span>5 Frames</span></div>
+    <div class="entry"><span>360%</span><span>4 Frames</span></div>
+</div>    
+    </div>
+
+    <div class="bp-group" data-class="Druid" data-tab="fcr">
+<div class="bp-block"> 
+    <div class="bp-subtitle">Human</div>
+    <div class="entry"><span>0%</span><span>18 Frames</span></div>
+    <div class="entry"><span>4%</span><span>17 Frames</span></div>
+    <div class="entry"><span>10%</span><span>16 Frames</span></div>
+    <div class="entry"><span>19%</span><span>15 Frames</span></div>
+    <div class="entry"><span>30%</span><span>14 Frames</span></div>
+    <div class="entry"><span>46%</span><span>13 Frames</span></div>
+    <div class="entry"><span>68%</span><span>12 Frames</span></div>
+    <div class="entry"><span>99%</span><span>11 Frames</span></div>
+    <div class="entry"><span>163%</span><span>10 Frames</span></div>
+</div>    
+<div class="bp-block"> 
+    <div class="bp-subtitle">Wolf</div>
+    <div class="entry"><span>0%</span><span>16 Frames</span></div>
+    <div class="entry"><span>6%</span><span>15 Frames</span></div>
+    <div class="entry"><span>14%</span><span>14 Frames</span></div>
+    <div class="entry"><span>26%</span><span>13 Frames</span></div>
+    <div class="entry"><span>40%</span><span>12 Frames</span></div>
+    <div class="entry"><span>60%</span><span>11 Frames</span></div>
+    <div class="entry"><span>95%</span><span>10 Frames</span></div>
+    <div class="entry"><span>157%</span><span>9 Frames</span></div>
+</div>    
+<div class="bp-block"> 
+    <div class="bp-subtitle">Bear</div>
+    <div class="entry"><span>0%</span><span>16 Frames</span></div>
+    <div class="entry"><span>7%</span><span>15 Frames</span></div>
+    <div class="entry"><span>15%</span><span>14 Frames</span></div>
+    <div class="entry"><span>26%</span><span>13 Frames</span></div>
+    <div class="entry"><span>40%</span><span>12 Frames</span></div>
+    <div class="entry"><span>63%</span><span>11 Frames</span></div>
+    <div class="entry"><span>99%</span><span>10 Frames</span></div>
+    <div class="entry"><span>163%</span><span>9 Frames</span></div>
+</div>    
+    </div>
+
+    <div class="bp-group" data-class="Druid" data-tab="fbr">
+<div class="bp-block"> 
+    <div class="bp-subtitle">Human</div>
+    <div class="entry"><span>0%</span><span>11 Frames</span></div>
+    <div class="entry"><span>6%</span><span>10 Frames</span></div>
+    <div class="entry"><span>13%</span><span>9 Frames</span></div>
+    <div class="entry"><span>20%</span><span>8 Frames</span></div>
+    <div class="entry"><span>32%</span><span>7 Frames</span></div>
+    <div class="entry"><span>52%</span><span>6 Frames</span></div>
+    <div class="entry"><span>86%</span><span>5 Frames</span></div>
+    <div class="entry"><span>174%</span><span>4 Frames</span></div>
+    <div class="entry"><span>600%</span><span>3 Frames</span></div>
+</div>    
+<div class="bp-block"> 
+    <div class="bp-subtitle">Wolf</div>
+    <div class="entry"><span>0%</span><span>9 Frames</span></div>
+    <div class="entry"><span>7%</span><span>8 Frames</span></div>
+    <div class="entry"><span>15%</span><span>7 Frames</span></div>
+    <div class="entry"><span>27%</span><span>6 Frames</span></div>
+    <div class="entry"><span>48%</span><span>5 Frames</span></div>
+    <div class="entry"><span>86%</span><span>4 Frames</span></div>
+    <div class="entry"><span>200%</span><span>3 Frames</span></div>
+</div>    
+<div class="bp-block"> 
+    <div class="bp-subtitle">Bear</div>
+    <div class="entry"><span>0%</span><span>12 Frames</span></div>
+    <div class="entry"><span>5%</span><span>11 Frames</span></div>
+    <div class="entry"><span>10%</span><span>10 Frames</span></div>
+    <div class="entry"><span>16%</span><span>9 Frames</span></div>
+    <div class="entry"><span>27%</span><span>8 Frames</span></div>
+    <div class="entry"><span>40%</span><span>7 Frames</span></div>
+    <div class="entry"><span>65%</span><span>6 Frames</span></div>
+    <div class="entry"><span>109%</span><span>5 Frames</span></div>
+    <div class="entry"><span>223%</span><span>4 Frames</span></div>
+    
+    </div>
+        </div>
+    </div>    
+  </div>
+
+<script>
+let currentClass = "Sorceress";
+let currentTab = "fcr";
+
+const groups = document.querySelectorAll('.bp-group');
+
+function updateView() {
+  groups.forEach(g => {
+    g.style.display =
+      g.dataset.class === currentClass &&
+      g.dataset.tab === currentTab
+        ? "block"
+        : "none";
+  });
+}
+
+document.getElementById('classSelect').addEventListener('change', e => {
+  currentClass = e.target.value;
+  updateView();
+});
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentTab = tab.dataset.tab;
+    updateView();
+  });
+});
+
+updateView();
+</script>
+
+</body>
+</html>

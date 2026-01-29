@@ -1,0 +1,1219 @@
+{
+  "Hitpower Amulet": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Amulet",
+    "base": "Magic Amulet",
+    "ingredients": [
+      "Thul Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+1 to Summon Skills",
+      "+1 Attack Rating per Character Level",
+      "5% Chance To Cast Level 4 Frost Nova When Struck"
+    ]
+  },
+  "Hitpower Rings": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Rings",
+    "base": "Magic Ring",
+    "ingredients": [
+      "Amn Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "5% Chance to cast Level 4 Frost Nova when struck",
+      "+1-5 to Dexterity",
+      "Attacker Takes Damage of 3-6"
+    ]
+  },
+  "Hitpower Weapon": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Weapon",
+    "base": "Magic Weapon",
+    "ingredients": [
+      "Tir Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+50-75% Enhanced Damage",
+      "+1 Attack Rating per Character Level",
+      "5% Chance To Cast Level 4 Frost Nova When Struck"
+    ]
+  },
+  "Hitpower Shield": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Shield",
+    "base": "Magic Shield",
+    "ingredients": [
+      "Eth Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "5% Chance to cast Level 4 Frost Nova when struck",
+      "5-10% Increased Chance of Blocking",
+      "Attacker Takes Damage of 3 - 10"
+    ]
+  },
+  "Hitpower Helm": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Helm",
+    "base": "Magic Helm",
+    "ingredients": [
+      "Ith Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "5% Chance to cast Level 4 Frost Nova when struck",
+      "+25-50 Defense vs. Missile",
+      "Attacker Takes Damage of 3-7"
+    ]
+  },
+  "Hitpower Body Armour": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Body Armour",
+    "base": "Magic Armour",
+    "ingredients": [
+      "Nef Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "5% Chance to cast Level 4 Frost Nova when struck",
+      "+10-20% Faster Hit Recovery",
+      "Attacker Takes Damage of 3 - 10"
+    ]
+  },
+  "Hitpower Gloves": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Gloves",
+    "base": "Magic Gloves",
+    "ingredients": [
+      "Ort Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "5% Chance to cast Level 4 Frost Nova when struck",
+      "Knockback",
+      "Attacker Takes Damage of 3 - 7"
+    ]
+  },
+  "Hitpower Belt": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Belt",
+    "base": "Magic Belt",
+    "ingredients": [
+      "Tal Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "5% Chance to cast Level 4 Frost Nova when struck",
+      "Attacker Takes Damage of 3-7",
+      "5-10% Damage Taken Goes To Mana"
+    ]
+  },
+  "Hitpower Boots": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Boots",
+    "base": "Magic Belt",
+    "ingredients": [
+      "Ral Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+4-7% Faster Run/Walk",
+      "+1 Attack Rating per Character Level",
+      "5% Chance To Cast Level 4 Frost Nova When Struck"
+    ]
+  },
+  "Hitpower Arrows/Bolts": {
+    "type": "craft",
+    "category": "Hitpower",
+    "item": "Arrows/Bolts",
+    "base": "Magic Arrows/Bolts",
+    "ingredients": [
+      "El Rune",
+      "Perfect Sapphire",
+      "Any Jewel"
+    ],
+    "mods": [
+      "Cold Arrow shoots 2 additional Arrows/Bolts",
+      "5% Chance to Cast Level 4 Frost Nova When Struck",
+      "+1 Attack Rating per Character Level"
+    ]
+  },
+  "Safety Amulet": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Amulet",
+    "base": "Magic Amulet",
+    "ingredients": [
+      "Thul Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+2 Mana on Melee Hit, +1 Mana on Ranged Hit",
+      "Magic Damage Reduced By (1-2)",
+      "Damage Reduced By (1-4)"
+    ]
+  },
+  "Safety Rings": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Rings",
+    "base": "Magic Ring",
+    "ingredients": [
+      "Amn Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+2 Life on Melee Hit, +1 Life on Ranged Hit",
+      "Magic Damage Reduced By (1-2)",
+      "Damage Reduced By (1-4)"
+    ]
+  },
+  "Safety Weapon": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Weapon",
+    "base": "Magic Weapon",
+    "ingredients": [
+      "Sol Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+50-75% Enhanced Damage",
+      "Magic Damage Reduced By (1-2)",
+      "Damage Reduced By (1-4)"
+    ]
+  },
+  "Safety Shield": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Shield",
+    "base": "Magic Shield",
+    "ingredients": [
+      "Nef Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+10-30% Enhanced Defense",
+      "Magic Resist +5-10%",
+      "Magic Damage Reduced by 1-2",
+      "Damage Reduced by 1-4"
+    ]
+  },
+  "Safety Helm": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Helm",
+    "base": "Magic Helm",
+    "ingredients": [
+      "Ith Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+10-30% Enhanced Defense",
+      "Lightning Resist +5-10%",
+      "Magic Damage Reduced by 1-2",
+      "Damage Reduced by 1-4"
+    ]
+  },
+  "Safety Body Armour": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Body Armour",
+    "base": "Magic Armour",
+    "ingredients": [
+      "Eth Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+10-30% Enhanced Defense",
+      "Magic Damage Reduced by 1-2",
+      "Damage Reduced by 1-4",
+      "Half Freeze Duration"
+    ]
+  },
+  "Safety Gloves": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Gloves",
+    "base": "Magic Gloves",
+    "ingredients": [
+      "Ral Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+10-30% Enhanced Defense",
+      "Cold Resist +5-10%",
+      "Magic Damage Reduced by 1-2",
+      "Damage Reduced by 1-4"
+    ]
+  },
+  "Safety Belt": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Belt",
+    "base": "Magic Belt",
+    "ingredients": [
+      "Tal Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+10-30% Enhanced Defense",
+      "Poison Resist +5-10%",
+      "Magic Damage Reduced by 1-2",
+      "Damage Reduced by 1-4"
+    ]
+  },
+  "Safety Boots": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Boots",
+    "base": "Magic Boots",
+    "ingredients": [
+      "Ort Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+10-30% Enhanced Defense",
+      "Fire Resist +5-10%",
+      "Magic Damage Reduced by 1-2",
+      "Damage Reduced by 1-4"
+    ]
+  },
+  "Safety Arrows/Bolts": {
+    "type": "craft",
+    "category": "Safety",
+    "item": "Arrows/Bolts",
+    "base": "Magic Arrows/Bolts",
+    "ingredients": [
+      "El Rune",
+      "Perfect Emerald",
+      "Any Jewel"
+    ],
+    "mods": [
+      "Damage Reduced by 1-4",
+      "+1 to Magic Arrow (oskill)",
+      "Damage Reduced By 1-4",
+      "Magic Damage Reduced By 1-2"
+    ]
+  },
+  "Caster Amulet": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Amulet",
+    "base": "Magic Amulet",
+    "ingredients": [
+      "Ral Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+5-10% Faster Cast Rate",
+      "Regenerate Mana 4-10%",
+      "+10-20 to Mana"
+    ]
+  },
+  "Caster Rings": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Rings",
+    "base": "Magic Ring",
+    "ingredients": [
+      "Amn Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+1-5 to Energy",
+      "Regenerate Mana 4-10%",
+      "+10-20 to Mana"
+    ]
+  },
+  "Caster Weapon": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Weapon",
+    "base": "Magic Weapon",
+    "ingredients": [
+      "Tir Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+50-75% Enhanced Damage",
+      "Regenerate Mana (4-10)%",
+      "+(10-20) To Mana"
+    ]
+  },
+  "Caster Shield": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Shield",
+    "base": "Magic Shield",
+    "ingredients": [
+      "Eth Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+5-10% Increased Chance of Blocking",
+      "Regenerate Mana 4-10%",
+      "+10-20 to Mana"
+    ]
+  },
+  "Caster Helm": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Helm",
+    "base": "Magic Helm",
+    "ingredients": [
+      "Nef Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "1% - 4% Mana stolen per hit",
+      "Regenerate Mana 4-10%",
+      "+10-20 to Mana"
+    ]
+  },
+  "Caster Body Armour": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Body Armour",
+    "base": "Magic Armour",
+    "ingredients": [
+      "Tal Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "Regenerate Mana 4-10%",
+      "+10-20 to Mana",
+      "+1-3 Mana after each Kill"
+    ]
+  },
+  "Caster Gloves": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Gloves",
+    "base": "Magic Gloves",
+    "ingredients": [
+      "Ort Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "Regenerate Mana 4-10%",
+      "+10-20 to Mana",
+      "+1-3 Mana after each Kill"
+    ]
+  },
+  "Caster Belt": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Belt",
+    "base": "Magic Belt",
+    "ingredients": [
+      "Ith Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+5-10% Faster Cast Rate",
+      "Regenerate Mana 4-10%",
+      "+10-20 to Mana"
+    ]
+  },
+  "Caster Boots": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Boots",
+    "base": "Magic Belt",
+    "ingredients": [
+      "Thul Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "Increase Maximum Mana 2-5%",
+      "Regenerate Mana 4-10%",
+      "+10-20 to Mana"
+    ]
+  },
+  "Caster Arrows/Bolts": {
+    "type": "craft",
+    "category": "Caster",
+    "item": "Arrows/Bolts",
+    "base": "Magic Arrows/Bolts",
+    "ingredients": [
+      "Eld Rune",
+      "Perfect Amethyst",
+      "Any Jewel"
+    ],
+    "mods": [
+      "Ice Arrow shoots 2 additional Arrows/Bolts",
+      "+(10-20) to Mana",
+      "4-10% Mana Regeneration"
+    ]
+  },
+  "Blood Amulet": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Amulet",
+    "base": "Magic Amulet",
+    "ingredients": [
+      "Amn Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+5-10% Faster Run/Walk",
+      "1-4% Life stolen per hit",
+      "+10-20 to Life"
+    ]
+  },
+  "Blood Rings": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Rings",
+    "base": "Magic Ring",
+    "ingredients": [
+      "Sol Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "1-3% Life stolen per hit",
+      "+1-5 to Strength",
+      "+10-20 to Life"
+    ]
+  },
+  "Blood Weapon": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Weapon",
+    "base": "Magic Weapon",
+    "ingredients": [
+      "Ort Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "+50-75% Enhanced Damage",
+      "(1-4)% Life Stolen Per Hit",
+      "+(10-20) To Life"
+    ]
+  },
+  "Blood Shield": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Shield",
+    "base": "Magic Shield",
+    "ingredients": [
+      "Ith Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "1-3% Life stolen per hit",
+      "+10-20 to Life",
+      "Attacker Takes Damage of 4 - 7"
+    ]
+  },
+  "Blood Helm": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Helm",
+    "base": "Magic Helm",
+    "ingredients": [
+      "Ral Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "1-3% Life stolen per hit",
+      "5-10% Deadly Strike",
+      "+10-20 to Life"
+    ]
+  },
+  "Blood Body Armour": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Body Armour",
+    "base": "Magic Armour",
+    "ingredients": [
+      "Thul Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "1-3% Life stolen per hit",
+      "+10-20 to Life",
+      "+1-3 Life after each Demon Kill"
+    ]
+  },
+  "Blood Gloves": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Gloves",
+    "base": "Magic Gloves",
+    "ingredients": [
+      "Nef Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "1-3% Life stolen per hit",
+      "5-10% Chance of Crushing Blow",
+      "+10-20 to Life"
+    ]
+  },
+  "Blood Belt": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Belt",
+    "base": "Magic Belt",
+    "ingredients": [
+      "Tal Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "1-3% Life stolen per hit",
+      "5-10% Chance of Open Wounds",
+      "+10-20 to Life"
+    ]
+  },
+  "Blood Boots": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Boots",
+    "base": "Magic Boots",
+    "ingredients": [
+      "Eth Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "1-3% Life stolen per hit",
+      "+10-20 to Life",
+      "Replenish Life +5-10"
+    ]
+  },
+  "Blood Arrows/Bolts": {
+    "type": "craft",
+    "category": "Blood",
+    "item": "Arrows/Bolts",
+    "base": "Magic Arrows/Bolts",
+    "ingredients": [
+      "Eld Rune",
+      "Perfect Ruby",
+      "Any Jewel"
+    ],
+    "mods": [
+      "Fire Arrow shoots 2 additional Arrows/Bolts",
+      "+(10-20) to Life",
+      "1-3% Life Stolen Per Hit"
+    ]
+  },
+  "Socket Weapon (Normal)": {
+    "type": "cube",
+    "category": "Socket",
+    "title": "Add Sockets: Normal Weapon",
+    "description": "",
+    "ingredients": [
+      "Ral Rune",
+      "Amn Rune",
+      "Perfect Amethyst",
+      "Normal Non-Ethereal Weapon"
+    ],
+    "result": "Socketed Weapon"
+  },
+  "Socket Body Armor (Normal)": {
+    "type": "cube",
+    "category": "Socket",
+    "title": "Add Sockets: Normal Body Armor",
+    "description": "",
+    "ingredients": [
+      "Tal Rune",
+      "Thul Rune",
+      "Perfect Topaz",
+      "Normal Non-Ethereal Armor"
+    ],
+    "result": "Socketed Body Armor"
+  },
+  "Socket Helm (Normal)": {
+    "type": "cube",
+    "category": "Socket",
+    "title": "Add Sockets: Normal Helm",
+    "description": "",
+    "ingredients": [
+      "Ral Rune",
+      "Thul Rune",
+      "Perfect Sapphire",
+      "Normal Non-Ethereal Helm"
+    ],
+    "result": "Socketed Helm"
+  },
+  "Socket Shield (Normal)": {
+    "type": "cube",
+    "category": "Socket",
+    "title": "Add Sockets: Normal Shield",
+    "description": "",
+    "ingredients": [
+      "Tal Rune",
+      "Amn Rune",
+      "Perfect Ruby",
+      "Normal Non-Ethereal Shield"
+    ],
+    "result": "Socketed Shield"
+  },
+  "Socket Rare Item": {
+    "type": "cube",
+    "category": "Socket",
+    "title": "Add Sockets: Rare item",
+    "description": "",
+    "ingredients": [
+      "3 Perfect Skulls",
+      "Stone of Jordan",
+      "Rare Item"
+    ],
+    "result": "Adds 2 Sockets to Rare item"
+  },  
+    "Unsocket Recipe": {
+    "type": "cube",
+    "category": "Socket",
+    "title": "Unsocket Recipe",
+    "description": "Unsocket Armour or Weapon",
+    "ingredients": [
+      "Hel Rune",
+      "Scroll of Town Portal",
+      "Any Non-Ethereal Socketed Item "
+    ],
+    "result": "Removes gems/runes from items to reuse the socket, though it destroys the items currently in the sockets"
+  },         
+  "Upgrade Unique Armor (Normal)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Normal Unique Armor",
+  "description": "",
+  "ingredients": [
+    "Tal Rune",
+    "Shael Rune",
+    "Perfect Diamond",
+    "Normal Unique Armor"
+  ],
+  "result": "Exceptional Version of Armor"
+  },
+  "Upgrade Unique Armor (Exceptional)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Exceptional Unique Armor",
+  "description": "",
+  "ingredients": [
+    "Ko Rune",
+    "Lem Rune",
+    "Perfect Diamond",
+    "Exceptional Unique Armor"
+  ],
+  "result": "Elite Version of Armor"
+  },  
+  "Upgrade Unique Weapon (Normal)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Normal Unique Weapon",
+  "description": "",
+  "ingredients": [
+    "Ral Rune",
+    "Sol Rune",
+    "Perfect Emerald",
+    "Normal Unique Weapon"
+  ],
+  "result": "Exceptional Version of Weapon"
+  },
+  "Upgrade Unique Weapon (Exceptional)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Exceptional Unique Weapon",
+  "description": "",
+  "ingredients": [
+    "Lum Rune",
+    "Pul Rune",
+    "Perfect Emerald",
+    "Exceptional Unique Weapon"
+  ],
+  "result": "Elite Version of Weapon"
+  },  
+  "Upgrade Set Armor (Normal)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Normal Set Armor",
+  "description": "",
+  "ingredients": [
+    "Eld Rune",
+    "Ith Rune",
+    "Perfect Topaz",
+    "Normal Set Armor"
+  ],
+  "result": "Exceptional Version of Armor"
+  },
+  "Upgrade Set Armor (Exceptional)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Exceptional Set Armor",
+  "description": "",
+  "ingredients": [
+    "Hel Rune",
+    "Io Rune",
+    "Perfect Topaz",
+    "Exceptional Set Armor"
+  ],
+  "result": "Elite Version of Armor"
+  },  
+  "Upgrade Set Weapon (Normal)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Normal Set Weapon",
+  "description": "",
+  "ingredients": [
+    "El Rune",
+    "Eth Rune",
+    "Perfect Ruby",
+    "Normal Set Weapon"
+  ],
+  "result": "Exceptional Version of Weapon"
+  },
+  "Upgrade Set Weapon (Exceptional)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Exceptional Set Weapon",
+  "description": "",
+  "ingredients": [
+    "Dol Rune",
+    "Mal Rune",
+    "Perfect Ruby",
+    "Exceptional Set Weapon"
+  ],
+  "result": "Elite Version of Weapon"
+  },
+  "Upgrade Rare Weapon (Normal)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Normal Rare Weapon",
+  "description": "",
+  "ingredients": [
+    "Ort Rune",
+    "Amn Rune",
+    "Perfect Sapphire",
+    "Normal Rare Weapon"
+  ],
+  "result": "Exceptional Version of Weapon"
+  },  
+  "Upgrade Rare Weapon (Exceptional)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Exceptional Rare Weapon",
+  "description": "",
+  "ingredients": [
+    "Fal Rune",
+    "Um Rune",
+    "Perfect Sapphire",
+    "Exceptional Rare Weapon"
+  ],
+  "result": "Elite Version of Weapon"
+  },    
+  "Upgrade Rare Armor (Normal)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Normal Rare Armor",
+  "description": "",
+  "ingredients": [
+    "Ral Rune",
+    "Thul Rune",
+    "Perfect Amethyst",
+    "Normal Rare Armor"
+  ],
+  "result": "Exceptional Version of Armor"
+  },
+  "Upgrade Rare Armor (Exceptional)": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Exceptional Rare Armor",
+  "description": "",
+  "ingredients": [
+    "Ko Rune",
+    "Pul Rune",
+    "Perfect Amethyst",
+    "Exceptional Rare Armor"
+  ],
+  "result": "Elite Version of Armor"
+  }, 
+  "Full Rejuv Potion": {
+    "type": "cube",
+    "category": "Potions",
+    "title": "Full Rejuv Potion",
+    "description": "",
+    "ingredients": [
+      "3 Partial Rejuv Potions"
+    ],
+    "result": "Full Rejuv Potion"
+  },
+  "Partial Rejuvenation potion": {
+    "type": "cube",
+    "category": "Potions",
+    "title": "Partial Rejuvenation Potion",
+    "description": "",
+    "ingredients": [
+      "3 Health Potions",
+      "3 Mana Potions",
+      "1 Chipped Gem"
+    ],
+    "result": "Partial Rejuvenation Potion"
+  },
+  "Antidote Potion": {
+    "type": "cube",
+    "category": "Potions",
+    "title": "Antidote Potion",
+    "description": "",
+    "ingredients": [
+      "Health Potion",
+      "Strangling Gas Potion"
+    ],
+    "result": "Antidote Potion"
+  },
+  "Amulet": {
+    "type": "cube",
+    "category": "Jewelry",
+    "title": "Amulet",
+    "description": "",
+    "ingredients": [
+      "3 Rings"
+    ],
+    "result": "Amulet: A higher level character will get a better quality amulet"
+  },
+  "Ring": {
+    "type": "cube",
+    "category": "Jewelry",
+    "title": "Ring",
+    "description": "",
+    "ingredients": [
+      "3 Amulets"
+    ],
+    "result": "Ring: A higher level character will get a better quality amulet"
+  },
+  "Jade Ring": {
+    "type": "cube",
+    "category": "Jewelry",
+    "title": "Jade Ring",
+    "description": "",
+    "ingredients": [
+      "Perfect Emerald",
+      "Antidote Potion",
+      "Ring"
+    ],
+    "result": "Jade Ring: 21-30% Poison Resistance"
+  },
+  "Garnet Ring": {
+    "type": "cube",
+    "category": "Jewelry",
+    "title": "Garnet Ring",
+    "description": "",
+    "ingredients": [
+      "Perfect Ruby",
+      "Exploding Potion",
+      "Ring"
+    ],
+    "result": "Garnet Ring: 21-30% Fire Resistance"
+  },
+  "Cobalt Ring": {
+    "type": "cube",
+    "category": "Jewelry",
+    "title": "Cobalt Ring",
+    "description": "",
+    "ingredients": [
+      "Perfect Sapphire",
+      "Thawing Potion",
+      "Ring"
+    ],
+    "result": "Cobalt Ring: 21-30% Cold Resistance"
+  },
+  "Coral Ring": {
+    "type": "cube",
+    "category": "Jewelry",
+    "title": "Coral Ring",
+    "description": "",
+    "ingredients": [
+      "Perfect Topaz",
+      "Rejuvenation Potion",
+      "Ring"
+    ],
+    "result": "Coral Ring: 21-30% Lightning Resistance"
+  },
+  "Prismatic Amulet": {
+    "type": "cube",
+    "category": "Jewelry",
+    "title": "Prismatic Amulet",
+    "description": "",
+    "ingredients": [
+      "6 Perfect Gems (one of each type except Skull)",
+      "Amulet"
+    ],
+    "result": "Prismatic Amulet: 16-25% Resist All"
+  },                             
+  "Reroll Rare Item": {
+    "type": "cube",
+    "category": "Reroll",
+    "title": "Reroll Rare Item",
+    "description": "",
+    "ingredients": [
+      "3 Perfect Skulls",
+      "Rare Item"
+    ],
+    "result": "New Rare Item of the same type"
+  },
+  "High Quality Rare Item": {
+    "type": "cube",
+    "category": "Reroll",
+    "title": "High Quality Rare Item",
+    "description": "",
+    "ingredients": [
+      "2 Perfect Skulls",
+      "2 Perfect Emeralds",
+      "Rare Item"
+    ],
+    "result": "New High Quality Rare Item of the same type"
+  },  
+  "Reroll Magic Item": {
+    "type": "cube",
+    "category": "Reroll",
+    "title": "Reroll Magic Item",
+    "description": "",
+    "ingredients": [
+      "3 Perfect Gems",
+      "Magic Item"
+    ],
+    "result": "New Magic Item of the same type. Works with Charms"
+  },
+  "Repair Weapon": {
+    "type": "cube",
+    "category": "Repair",
+    "title": "Repair Weapon",
+    "description": "",
+    "ingredients": [
+      "Ort Rune",
+      "Any Weapon"
+    ],
+    "result": "Fully Repaired Weapon"
+  },
+  "Repair Armor": {
+    "type": "cube",
+    "category": "Repair",
+    "title": "Repair Armor",
+    "description": "",
+    "ingredients": [
+      "Ral Rune",
+      "Any Armor"
+    ],
+    "result": "Fully Repaired Armor"
+  },
+  "Orb of Corruption": {
+    "type": "cube",
+    "category": "PoD",
+    "title": "Orb Of Corruption",
+    "description": "Press the Transmute button twice.",
+    "ingredients": [
+      "Orb Of Corruption",
+      "Corruptable Item Type"
+    ],
+    "result": "View Corruptions Window for Results"
+  },
+  "Orb of Alteration": {
+    "type": "cube",
+    "category": "PoD",
+    "title": "Orb of Alteration",
+    "description": "Orb of Alteration will always turn a relic into a Rare of the same tier, so you can use it to turn a Magic relic into a Rare relic",
+    "ingredients": [
+      "Orb of Alteration",
+      "Map Relic"
+    ],
+    "result": "Rerolls a relic's affixes. The relic may also change to another relic of the same tier"
+  },
+  "Upgrade: Yellow Relic": {
+    "type": "cube",
+    "category": "PoD",
+    "title": "Upgrade: Yellow Relic",
+    "description": "",
+    "ingredients": [
+      "4 White Map Relics"
+    ],
+    "result": "Ramdon Yellow Map Relic"
+  },
+  "Upgrade: Red Relic": {
+    "type": "cube",
+    "category": "PoD",
+    "title": "Upgrade: Yellow Relic",
+    "description": "",
+    "ingredients": [
+      "4 Yellow Map Relics"
+    ],
+    "result": "Random Red Map Relic"
+  },
+  "Relic Corruption": {
+    "type": "cube",
+    "category": "PoD",
+    "title": "Relic Corruption",
+    "description": "Corrupted relics have a small chance to turn into a Pleasant Pasture Relic",
+    "ingredients": [
+      "Map Relic",
+      "Orb Of Corruption"
+    ],
+    "result": "These have a chance to increase monster density and experience however usually add more challenging affixes"
+  },
+  "Reroll: Rare Relic V1": {
+    "type": "cube",
+    "category": "PoD",
+    "title": "Reroll: Rare Relic V1",
+    "description": "",
+    "ingredients": [
+      "2 Perfect Skulls",
+      "2 Perfect Emeralds",
+      "Rare Relic"
+    ],
+    "result": "Rare Relic: New set of affixes"
+  },
+  "Reroll: Rare Relic V2": {
+    "type": "cube",
+    "category": "PoD",
+    "title": "Reroll: Rare Relic V2",
+    "description": "",
+    "ingredients": [
+      "3 Perfect Skulls",
+      "Rare Relic"
+    ],
+    "result": "Rare Relic: New set of affixes"
+  },
+  "Reroll: Magic Relic": {
+    "type": "cube",
+    "category": "PoD",
+    "title": "Reroll: Magic Relic",
+    "description": "",
+    "ingredients": [
+      "3 Perfect Gems",
+      "Magic Relic"
+    ],
+    "result": "Magic Relic: New set of affixes"
+  },              
+  "Upgrade Gems": {
+  "type": "cube",
+  "category": "Upgrade",
+  "title": "Upgrade Gems",
+  "description": "",
+  "ingredients": [
+    "3x Same Gem Types & Color"
+  ],
+  "result": "1 Higher Tier Gem of Same Color. Works with adding 3,6,or 9 Gems in Cube"
+  },
+  "Mini-Uber Portals": {
+  "type": "cube",
+  "category": "Bosses",
+  "title": "Mini-Uber Portals",
+  "description": "Opens Matron's Den, Forgotten Sands, Furnace of Pain",
+  "ingredients": [
+    "1 Key of Terror (Countess)",
+    "1 Key of Hate (Summoner)",
+    "1 Key of Destruction (Nihlathak)"
+  ],
+  "result": "Repeat this 3 times to open all three portals in SAME GAME. Tip: Do not open them on top of each other, as they can overlap and prevent entry."
+  },   
+  "Uber Tristram": {
+  "type": "cube",
+  "category": "Bosses",
+  "title": "Uber Tristram",
+  "description": "Fight Uber Diablo, Uber Baal, and Uber Mephisto",
+  "ingredients": [
+    "Horn (Uber Lilith",
+    "Brain (Uber Duriel)",
+    "Eye (Uber Izual)"
+  ],
+  "result": "Red Portal to Uber Tristram"
+  },  
+  "Diablo Clone": {
+  "type": "cube",
+  "category": "Bosses",
+  "title": "Diablo Clone",
+  "description": "Ancient Temple Portal located in north Harrogath Town",
+  "ingredients": [
+    "Horn (Uber Lilith",
+    "Brain (Uber Duriel)",
+    "Eye (Uber Izual)",
+    "Diablo Soulstone (Uber Trist)",
+    "Key of Chaos (Maps)"
+  ],
+  "result": "Unique relic. Right click inside Ancient Temple to open"
+  },
+  "Cow Level": {
+  "type": "cube",
+  "category": "Quest",
+  "title": "Cow Level",
+  "description": "MUST be in the Rogue Encampment & completeled difficulty",
+  "ingredients": [
+    "Wirt's Leg",
+    "Tome of Town Portal"
+  ],
+  "result": "A red portal will open to The Cow Level."
+  },
+  "Horadric Staff": {
+  "type": "cube",
+  "category": "Quest",
+  "title": "Horadric Staff",
+  "description": "Use the Horadric Staff to open Tal Rasha's Tomb in Act II",
+  "ingredients": [
+    "Staff of Kings",
+    "Viper Amulet"
+  ],
+  "result": "Horadric Staff"
+  },
+  "Khalim's Will": {
+  "type": "cube",
+  "category": "Quest",
+  "title": "Khalim's Will",
+  "description": "Use Khalim's Will to destroy the Compelling Orb and enter the Durance of Hate in Act III.",
+  "ingredients": [
+    "Khalim's Eyes",
+    "Khalim's Heart",
+    "Khalim's Brain",
+    "Khalim's Flail"    
+  ],
+  "result": "Khalim's Will"
+  }             
+}

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+  body {
+    margin: 0;
+    padding: 10px;
+    background: rgba(20, 20, 20, 0.85);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    user-select: none;
+
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* --------------------
+     DRAG HANDLE
+  -------------------- */
+
+  .drag-handle {
+    -webkit-app-region: drag;
+  }
+
+  /* --------------------
+     HEADER
+  -------------------- */
+
+  .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  #last-updated {
+    text-align: center;
+    font-size: 11px;
+    opacity: 0.6;
+    margin-bottom: 6px;
+  }
+
+  /* --------------------
+     LIST
+  -------------------- */
+
+  #list {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-app-region: no-drag;
+    cursor: default !important;
+  }
+
+  .rune {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px solid #333;
+    font-size: 14px;
+  }
+
+  .rune:last-child {
+    border-bottom: none;
+  }
+
+  .rune-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .rune img {
+    width: 18px;
+    height: 18px;
+    image-rendering: pixelated;
+  }
+
+  /* --------------------
+     SCROLLBAR (NORMAL MODE)
+  -------------------- */
+
+  body:not(.condensed) #list::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  body:not(.condensed) #list::-webkit-scrollbar-thumb {
+    background: rgba(41, 41, 41, 0.8);
+    border-radius: 4px;
+  }
+
+  body:not(.condensed) #list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 159, 67, 1);
+  }
+
+  /* --------------------
+     CONDENSED MODE
+  -------------------- */
+  body:not(.condensed) #content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  body.condensed #content {
+  display: block;
+  
+  }
+  body.condensed #list {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  body.condensed .rune {
+    font-size: 12px;
+    padding: 2px 0;
+  }
+
+  body.condensed .rune img {
+    width: 20px;
+    height: 20px;
+  }
+
+  body.condensed #footer {
+  border-top: 1px solid #333;
+  padding-top: 6px;
+  }
+  #helpBtn {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+
+    color: #ff9f43;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    -webkit-app-region: no-drag;
+    pointer-events: auto;
+  }
+
+  #helpBtn:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  #footer-ui {
+  position: relative;
+  display: flex;
+  }
+  #footer-ui:hover #helpPanel {
+    display: block;
+  }
+  #footer {
+  padding-top: 0;
+  margin-top: 0;
+  }
+
+  .help-icon {
+    width: 26px;
+    height: 26px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    color: #ff9f43;
+    font-weight: bold;
+    font-size: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+  }
+
+  #helpPanel {
+    position: absolute;
+    bottom: 36px;
+    left: 0;
+    width: 260px;
+    background: rgba(15, 15, 15, 0.95);
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 12px;
+    -webkit-app-region: no-drag;
+  }
+
+  #helpPanel.hidden {
+    display: none;
+  }
+
+  .help-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #ff9f43;
+  }
+
+  .help-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  kbd {
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-size: 11px;
+    color: #fff;
+  }
+    .subtitle {
+      text-align: center;
+      font-size: 11px;
+      margin-top: 2px;
+      margin-bottom: 8px;
+  }
+</style>
+</head>
+
+<body>
+<div id="content"> 
+<div class="drag-handle">
+  <div class="title">Rough Rune Prices</div>
+  <div class="subtitle">Actual Values Will Vary</div>
+  <div id="last-updated"></div>
+</div>
+
+<div id="list"></div>
+
+<script>
+const { ipcRenderer } = require('electron');
+
+const list = document.getElementById('list');
+const lastUpdated = document.getElementById('last-updated');
+
+let rendered = false;
+
+function getContentHeight() {
+  return document.getElementById('content').scrollHeight;
+}
+
+/* --------------------
+   RUNE DATA
+-------------------- */
+ipcRenderer.on('rune-data', (_, payload) => {
+  if (rendered) return;
+  rendered = true;
+
+  const { runes, updated } = payload;
+
+  if (updated) {
+    const [y, m, d] = updated.split('-').map(Number);
+    const date = new Date(y, m - 1, d);
+
+    lastUpdated.textContent =
+      `Updated: ${date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      })}`;
+  }
+
+  Object.entries(runes)
+    .sort((a, b) => b[1] - a[1])
+    .forEach(([name, value]) => {
+      const row = document.createElement('div');
+      row.className = 'rune';
+
+      const left = document.createElement('div');
+      left.className = 'rune-left';
+
+      const img = document.createElement('img');
+      img.src = `./icons/${name}.webp`;
+      img.onerror = () => img.style.display = 'none';
+
+      const label = document.createElement('span');
+      label.textContent = name;
+
+      left.append(img, label);
+
+      const price = document.createElement('span');
+      price.textContent = value;
+
+      if (value >= 1) row.style.color = '#db14d4';
+      else if (value >= 0.5) row.style.color = '#ff9f43';
+      else if (value >= 0) row.style.color = '#ffffff';
+
+      row.append(left, price);
+      list.appendChild(row);
+    });
+
+    if (isCondensedMode) {
+      requestAnimationFrame(() => {
+        const height = document.getElementById('content').scrollHeight;
+        ipcRenderer.send('resize-condensed', height);
+      });
+    }
+});
+
+/* --------------------
+   CONDENSED MODE
+-------------------- */
+ipcRenderer.on('condensed-state', (_, isCondensed) => {
+  isCondensedMode = isCondensed;
+  document.body.classList.toggle('condensed', isCondensed);
+
+  if (!isCondensed) {
+    ipcRenderer.send('resize-normal');
+  }
+});
+
+
+
+</script>
+
+<div id="footer">
+  <div id="footer-ui">
+    <div id="helpBtn" class="help-icon">?</div>
+
+    <div id="helpPanel" class="hidden">
+      <div class="help-title">Hotkeys</div>
+
+      <div class="help-item">
+        <span>Rune Prices</span>
+        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd>
+      </div>
+
+      <div class="help-item">
+        <span>Runewords</span>
+        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd>
+      </div>
+
+      <div class="help-item">
+        <span>Corruptions</span>
+        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>
+      </div>
+
+      <div class="help-item">
+        <span>Cube Recipes</span>
+        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>
+      </div>      
+    </div>
+  </div>
+</div>
+</div> 
+
+
+</body>
+</html>

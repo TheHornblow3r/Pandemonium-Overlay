@@ -1,0 +1,340 @@
+const { app, BrowserWindow, globalShortcut, ipcMain, screen } = require('electron');
+const fetch = require('node-fetch');
+const fs = require('fs');
+const path = require('path');
+
+app.commandLine.appendSwitch('disable-overlay-scrollbar');
+
+// --------------------
+// STATE
+// --------------------
+let win = null;
+let corruptionWin = null;
+let runewordWin = null;
+let craftingWin;
+let visible = false;
+let isCondensedMode = false;
+let condensed = true;
+let normalRuneWindowHeight = null;
+let breakpointWin;
+
+
+
+// --------------------
+// CONFIG
+// --------------------
+const WIDTH = 300;
+const HEIGHT = 500;
+
+const CORRUPTION_WIDTH = 1000;
+const CORRUPTION_HEIGHT = 650;
+
+const RUNEWORDS_WIDTH = 1300;
+const RUNEWORDS_HEIGHT = 600;
+
+const DATA_URL =
+  'https://raw.githubusercontent.com/TheHornblow3r/Pandemonium-Overlay/main/rune-prices.json';
+
+let POS_FILE;
+let CORRUPTION_POS_FILE;
+
+// --------------------
+// HELPERS
+// --------------------
+function loadPosition(file) {
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf-8'));
+  } catch {
+    return null;
+  }
+}
+
+function savePosition(win, file) {
+  if (!win || win.isDestroyed()) return;
+  const [x, y] = win.getPosition();
+  fs.writeFileSync(file, JSON.stringify({ x, y }));
+}
+
+async function fetchData() {
+  const res = await fetch(DATA_URL);
+  return await res.json();
+}
+
+// --------------------
+// RUNE WINDOW
+// --------------------
+function createMainWindow() {
+  const savedPos = loadPosition(POS_FILE);
+
+  win = new BrowserWindow({
+    width: WIDTH,
+    height: HEIGHT,
+    x: savedPos?.x,
+    y: savedPos?.y,
+    frame: false,
+    transparent: true,
+    skipTaskbar: true,
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+  normalRuneWindowHeight = 420;
+
+  win.setAlwaysOnTop(true, 'screen-saver');
+  win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+  win.setFocusable(false);
+
+  win.loadFile('index.html');
+  win.hide();
+}
+
+// --------------------
+// CORRUPTIONS WINDOW
+// --------------------
+function createCorruptionWindow() {
+  const savedPos = loadPosition(CORRUPTION_POS_FILE);
+
+  corruptionWin = new BrowserWindow({
+    width: CORRUPTION_WIDTH,
+    height: CORRUPTION_HEIGHT,
+    x: savedPos?.x,
+    y: savedPos?.y,
+    frame: false,
+    transparent: true,
+    skipTaskbar: true,
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  corruptionWin.setAlwaysOnTop(true, 'screen-saver');
+  corruptionWin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+  corruptionWin.setFocusable(false);
+
+  corruptionWin.loadFile('corruptions.html');
+  corruptionWin.hide();
+
+  corruptionWin.on('move', () =>
+    savePosition(corruptionWin, CORRUPTION_POS_FILE)
+  );
+}
+
+// --------------------
+// RUNEWORDS WINDOW
+// --------------------
+function createRunewordWindow() {
+  runewordWin = new BrowserWindow({
+    width: RUNEWORDS_WIDTH,
+    height: RUNEWORDS_HEIGHT,
+    frame: false,
+    transparent: true,
+    skipTaskbar: true,
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  runewordWin.setAlwaysOnTop(true, 'screen-saver');
+  runewordWin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+
+  runewordWin.loadFile('runewords.html');
+  runewordWin.hide();
+
+  runewordWin.on('close', (e) => {
+    e.preventDefault();
+    runewordWin.hide();
+  });
+}
+// --------------------
+// CRAFTING WINDOW
+// --------------------
+function createCraftingWindow() {
+  craftingWin = new BrowserWindow({
+    width: 900,
+    height: 600,
+    frame: false,
+    transparent: true,
+    alwaysOnTop: true,
+    resizable: true,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  craftingWin.setAlwaysOnTop(true, 'screen-saver');
+  craftingWin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+
+  craftingWin.loadFile('crafting.html');
+}
+// --------------------
+// BREAKPOINTS WINDOW
+// --------------------
+
+function createBreakpointWindow() {
+  if (breakpointWin) {
+    breakpointWin.isVisible()
+      ? breakpointWin.hide()
+      : breakpointWin.showInactive();
+    return;
+  }
+
+  breakpointWin = new BrowserWindow({
+    width: 360,
+    height: 420,
+    frame: false,
+    transparent: true,
+    alwaysOnTop: true,
+    resizable: false,
+    skipTaskbar: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  breakpointWin.loadFile('breakpoints.html');
+
+  breakpointWin.on('closed', () => {
+    breakpointWin = null;
+  });
+}
+
+// --------------------
+// APP READY
+// --------------------
+
+app.whenReady().then(async () => {
+  POS_FILE = path.join(app.getPath('userData'), 'overlay-position.json');
+  CORRUPTION_POS_FILE = path.join(
+    app.getPath('userData'),
+    'corruption-position.json'
+  );
+
+  // 🔥 THESE THREE LINES ARE CRITICAL
+  createMainWindow();
+  createCorruptionWindow();
+  createRunewordWindow();
+  createCraftingWindow();
+
+  const payload = await fetchData();
+
+  win.webContents.once('did-finish-load', () => {
+    win.webContents.send('rune-data', {
+      runes: payload.runes,
+      updated: payload._meta?.updated
+    });
+
+    win.webContents.send('condensed-state', condensed);
+  });
+
+// --------------------
+// HOTKEYS
+// --------------------
+
+  // RUNE PRICE HOTKEY
+  globalShortcut.register('Control+Shift+O', () => {
+    visible ? win.hide() : win.showInactive();
+    visible = !visible;
+  });
+
+  // CRAFTING HOTKEY
+  globalShortcut.register('Control+Shift+V', () => {
+  if (!craftingWin) return;
+
+  if (craftingWin.isVisible()) {
+    craftingWin.hide();
+  } else {
+    craftingWin.show();
+  }
+  });
+  // CONDENSED HOTKEY
+  globalShortcut.register('Control+Shift+K', () => {
+    condensed = !condensed;
+    win.webContents.send('condensed-state', condensed);
+  });
+
+  // CORRUPTIONS HOTKEY
+  globalShortcut.register('Control+Shift+C', () => {
+    if (corruptionWin.isVisible()) corruptionWin.hide();
+    else corruptionWin.showInactive();
+  });
+
+  // RUNWORDS HOTKEY
+  globalShortcut.register('Control+Shift+R', () => {
+    if (runewordWin.isVisible()) runewordWin.hide();
+    else runewordWin.showInactive();
+  });
+  // BREAKPOINTS HOTKEY
+  globalShortcut.register('Control+Shift+B', () => {
+  createBreakpointWindow();
+});
+
+// Hide all
+let allHidden = false;
+
+globalShortcut.register('Control+Shift+H', () => {
+  const windows = [
+    win,              // rune overlay
+    corruptionWin,
+    runewordWin,
+    craftingWin,
+    breakpointWin
+  ];
+
+  if (!allHidden) {
+    // HIDE only visible windows
+    windows.forEach(w => {
+      if (w && w.isVisible()) {
+        w.hide();
+      }
+    });
+    allHidden = true;
+  } else {
+    // SHOW only windows that are currently hidden
+    windows.forEach(w => {
+      if (w && !w.isVisible()) {
+        w.showInactive(); // 👈 no focus, no flicker
+      }
+    });
+    allHidden = false;
+  }
+});
+
+ipcMain.on('resize-condensed', (event, height) => {
+  const win = BrowserWindow.fromWebContents(event.sender);
+  if (!win) return;
+
+  const display = screen.getPrimaryDisplay();
+  const maxHeight = display.workAreaSize.height - 40;
+
+  const finalHeight = Math.min(Math.ceil(height), maxHeight);
+  const [width] = win.getSize();
+
+  win.setSize(width, finalHeight, true);
+});
+
+ipcMain.on('resize-normal', event => {
+  const win = BrowserWindow.fromWebContents(event.sender);
+  if (!win || !normalRuneWindowHeight) return;
+
+  const [width] = win.getSize();
+  win.setSize(width, normalRuneWindowHeight, true);
+});
+
+
+});
+
+// --------------------
+// CLEANUP
+// --------------------
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
+});

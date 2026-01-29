@@ -1,0 +1,13 @@
+{
+  "name": "pod-rune-overlay",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^40.0.0",
+    "node-fetch": "^2.7.0",
+    "xlsx": "^0.18.5"
+  }
+}

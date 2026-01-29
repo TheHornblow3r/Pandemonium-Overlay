@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+  body {
+    margin: 0;
+    padding: 12px;
+    background: rgba(20, 20, 20, 0.92);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    user-select: none;
+    overflow: hidden;
+  }
+
+  .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    -webkit-app-region: drag;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 11px;
+    opacity: 0.6;
+    margin-bottom: 8px;
+    -webkit-app-region: drag;
+  }
+
+  #content {
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+
+  #content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #content::-webkit-scrollbar-thumb {
+    background: rgba(255, 159, 67, 0.8);
+    border-radius: 4px;
+  }
+
+  #content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 159, 67, 1);
+  }
+
+.section {
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 8px;
+  background: rgba(255,255,255,0.02);
+}
+.section-footer {
+  justify-content: center;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 8px;
+  background: rgba(255,255,255,0.02);
+}
+
+
+  .sections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 sections per row */
+  gap: 16px;
+}
+
+.section-title {
+  color: #ff9f43;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255,159,67,0.4);
+  margin-bottom: 6px;
+  padding-bottom: 2px;
+}
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.entry .name {
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 6px;
+}
+
+.entry .value {
+  font-weight: bold;
+  color: #ff4943;
+  white-space: nowrap;
+}
+
+
+
+  .corruption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  border-bottom: 1px solid #2a2a2a;
+  font-size: 13px;
+}
+
+.corruption:last-child {
+  border-bottom: none;
+}
+
+.corruption .name {
+  opacity: 0.95;
+}
+
+.corruption .value {
+  opacity: 0.8;
+  font-weight: bold;
+}
+
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+  }
+
+  li {
+    padding: 3px 0;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+</style>
+</head>
+
+<body>
+  <div class="drag-handle">
+    <div class="title">Orb of Corruption</div>
+    <div class="subtitle">Path of Diablo Outcomes</div>
+  </div>
+
+  <div id="content">
+
+<div class="sections-grid">
+
+<!-- Helm -->
+<div class="section">
+  <div class="section-title">Helm</div>
+
+  <div class="entry"><div class="name">Strength</div><div class="value">5–15</div></div>
+  <div class="entry"><div class="name">Energy</div><div class="value">5–15</div></div>
+  <div class="entry"><div class="name">Life Gained on Melee / Ranged Hit</div><div class="value">10–14 / 5–10</div></div>
+  <div class="entry"><div class="name">Life</div><div class="value">5–15</div></div>
+  <div class="entry"><div class="name">Piercing Attack</div><div class="value">15%–20%</div></div>
+</div>
+
+<!-- Boots -->
+<div class="section">
+  <div class="section-title">Boots</div>
+
+  <div class="entry"><div class="name">Fire Resistance</div><div class="value">10%–20%</div></div>
+  <div class="entry"><div class="name">All Resistances</div><div class="value">5%–10%</div></div>
+  <div class="entry"><div class="name">Dexterity</div><div class="value">5–15</div></div>
+  <div class="entry"><div class="name">Lightning Resistance</div><div class="value">10%–20%</div></div>
+  <div class="entry"><div class="name">Reduced Cooldown</div><div class="value">10%</div></div>
+</div>
+
+<!-- Gloves -->
+<div class="section">
+  <div class="section-title">Gloves</div>
+
+  <div class="entry"><div class="name">Increased Attack Speed</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Cold Resistance</div><div class="value">10%–20%</div></div>
+  <div class="entry"><div class="name">All Resistances</div><div class="value">5%–10%</div></div>
+  <div class="entry"><div class="name">Life Gained on Melee / Ranged Hit</div><div class="value">5–10 / 5–10</div></div>
+  <div class="entry"><div class="name">Poison Resistance</div><div class="value">10%–20%</div></div>
+</div>
+
+<!-- Amulet -->
+<div class="section">
+  <div class="section-title">Amulet</div>
+
+  <div class="entry"><div class="name">All Resistances</div><div class="value">5%</div></div>
+  <div class="entry"><div class="name">All Skills</div><div class="value">+1</div></div>
+  <div class="entry"><div class="name">Regenerate Mana</div><div class="value">15%</div></div>
+  <div class="entry"><div class="name">Magic Find</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Life</div><div class="value">12–18</div></div>
+</div>
+
+<!-- Rings -->
+<div class="section">
+  <div class="section-title">Rings</div>
+
+  <div class="entry"><div class="name">Faster Cast Rate</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Faster Run/Walk</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Life</div><div class="value">15</div></div>
+  <div class="entry"><div class="name">Physical Damage Taken Reduced By</div><div class="value">5%–6%</div></div>
+  <div class="entry"><div class="name">Better Chance of Getting Magic Items</div><div class="value">10%</div></div>
+</div>
+
+<!-- Armour -->
+<div class="section">
+  <div class="section-title">Armour</div>
+
+  <div class="entry"><div class="name">Increased Attack Speed</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Enhanced Defense</div><div class="value">15%–20%</div></div>
+  <div class="entry"><div class="name">Bonus to Attack Rating</div><div class="value">10%–20%</div></div>
+  <div class="entry"><div class="name">Faster Cast Rate</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Increase Maximum Life</div><div class="value">2%</div></div>
+</div>
+
+<!-- Weapons -->
+<div class="section">
+  <div class="section-title">Weapons</div>
+
+  <div class="entry"><div class="name">Enhanced Damage</div><div class="value">35%–50%</div></div>
+  <div class="entry"><div class="name">Deadly Strike</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Max Damage per Level</div><div class="value">+1</div></div>
+  <div class="entry"><div class="name">Crushing Blow</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Increased Attack Speed</div><div class="value">10%–15%</div></div>
+</div>
+
+<!-- Shield -->
+<div class="section">
+  <div class="section-title">Shield</div>
+
+  <div class="entry"><div class="name">Increased Chance to Block</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Increased Fire Damage</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Increased Cold Damage</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Increased Lightning Damage</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">Increased Poison Damage</div><div class="value">10%</div></div>
+</div>
+
+<!-- Bolts / Arrows -->
+<div class="section">
+  <div class="section-title">Bolts / Arrows</div>
+
+  <div class="entry"><div class="name">All Resistances</div><div class="value">5%</div></div>
+  <div class="entry"><div class="name">Life Gained on Ranged Hit</div><div class="value">4–6</div></div>
+  <div class="entry"><div class="name">Mana Gained on Ranged Hit</div><div class="value">2–4</div></div>
+  <div class="entry"><div class="name">Increased Attack Speed</div><div class="value">10%</div></div>
+  <div class="entry"><div class="name">All Skills</div><div class="value">+1</div></div>
+</div>
+
+
+
+<!-- Socketable Items -->
+<div class="section-footer">
+  <div class="subtitle">Possible Outcomes of the Corruption Recipe</div>
+  <div class="section-title">Socketable Items</div>
+
+  <div class="entry"><div class="name">Gains a New Corruption Affix</div><div class="value">25%</div></div>
+  <div class="entry"><div class="name">Gains Sockets</div><div class="value">25%</div></div>
+  <div class="entry"><div class="name">Transforms into a Random New Rare Item</div><div class="value">25%</div></div>
+  <div class="entry"><div class="name">No Change (CnC)</div><div class="value">25%</div></div>
+</div>
+<!-- UnSocketable Items -->
+<div class="section-footer">
+  <div class="subtitle">Possible Outcomes of the Corruption Recipe</div>
+  <div class="section-title">Unsocketable Items</div>
+
+  <div class="entry"><div class="name">Gains a New Corruption Affix</div><div class="value">25%</div></div>
+  <div class="entry"><div class="name">Gains Sockets</div><div class="value">0%</div></div>
+  <div class="entry"><div class="name">Transforms into a Random New Rare Item</div><div class="value">25%</div></div>
+  <div class="entry"><div class="name">No Change (CnC)</div><div class="value">50%</div></div>
+</div> 
+
+
+
+  <script>
+
+</script>
+
+</body>
+
+
+</html>

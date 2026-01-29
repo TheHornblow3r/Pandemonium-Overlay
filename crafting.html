@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Crafting Recipes</title>
+
+<style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+body {
+  margin: 0;
+  padding: 8px;
+  background: rgba(15, 15, 15, 0.95);
+  color: #ddd;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  user-select: none;
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+  /* --------------------
+     HEADER
+  -------------------- */
+
+  .title-bar {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 11px;
+    opacity: 0.6;
+    margin-bottom: 6px;
+  }
+
+  #search {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 6px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    color: #fff;
+    border-radius: 4px;
+    outline: none;
+    -webkit-app-region: no-drag;
+  }
+
+  /* --------------------
+     FILTERS
+  -------------------- */
+
+  #filters {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+    -webkit-app-region: no-drag;
+  }
+
+  #filters button {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    color: #ccc;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  #filters button.active {
+    color: #ff9f43;
+    border-color: #ff9f43;
+  }
+
+  #filters button:hover {
+    background: #2a2a2a;
+  }
+
+  /* --------------------
+     GRID / CARDS
+  -------------------- */
+
+#grid {
+  flex: 1; /* 👈 THIS is the magic */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
+  padding-bottom: 12px;
+
+  -webkit-app-region: no-drag;
+}
+    .container {
+      padding: 8px;
+      -webkit-app-region: drag;
+    }
+
+  .card {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 6px;
+  }
+
+  .card-title {
+    color: #ff9f43;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  .category {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+
+  .section {
+    margin-top: 6px;
+  }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #aaa;
+    border-bottom: 1px solid #333;
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+  }
+
+  .list-item {
+    color: #0550f0;
+    line-height: 1.35;
+    opacity: 0.95;
+  }
+
+  .ingredient {
+    color: #b8860b;
+  }
+
+  .mod {
+    color: #ffffff;
+  }
+
+  /* --------------------
+     SCROLLBAR
+  -------------------- */
+
+  #grid::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #grid::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+  }
+
+  #grid::-webkit-scrollbar-thumb:hover {
+    background: #666;
+  }
+  .cube-description {
+  color: #ffffff;
+  }
+
+</style>
+</head>
+
+<body>
+  <div class="container">
+  <div class="title-bar">Horadric Cube Recipes</div>
+  <div class="subtitle">Path of Diablo</div>
+</div>
+  <input id="search" placeholder="Search crafts, ingredients, mods..." />
+
+<div id="filters">
+  <button data-filter="all" class="active">All</button>
+</div>
+
+  <div id="grid"></div>
+
+<script>
+const grid = document.getElementById('grid');
+const searchInput = document.getElementById('search');
+const filterButtons = document.querySelectorAll('#filters button');
+
+let cards = [];
+let activeFilter = 'all';
+
+function applyFilters() {
+  const q = searchInput.value.toLowerCase();
+
+  cards.forEach(card => {
+    const matchesSearch = card.dataset.search.includes(q);
+    const matchesFilter =
+      activeFilter === 'all' ||
+      card.dataset.category === activeFilter;
+
+    card.style.display =
+      matchesSearch && matchesFilter ? '' : 'none';
+  });
+}
+
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    activeFilter = btn.dataset.filter;
+    applyFilters();
+  });
+});
+
+searchInput.addEventListener('input', applyFilters);
+
+fetch('./crafting.json')
+  .then(res => res.json())
+  .then(data => {
+    const filtersContainer = document.getElementById('filters');
+
+// Collect unique categories
+const categories = new Set();
+
+Object.values(data).forEach(craft => {
+  if (craft.category) {
+    categories.add(craft.category.toLowerCase());
+  }
+});
+
+// Create buttons
+categories.forEach(cat => {
+  const btn = document.createElement('button');
+  btn.dataset.filter = cat;
+  btn.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#filters button')
+      .forEach(b => b.classList.remove('active'));
+
+    btn.classList.add('active');
+    activeFilter = cat;
+    applyFilters();
+  });
+
+  filtersContainer.appendChild(btn);
+});
+
+    Object.values(data).forEach(craft => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      card.dataset.category = craft.category.toLowerCase();
+
+      const searchText = [
+        craft.category,
+        craft.title,
+        craft.item,
+        craft.description,
+        ...(craft.ingredients || []),
+        ...(craft.mods || []),
+        craft.result
+      ].join(' ').toLowerCase();
+
+      card.dataset.search = searchText;
+
+      let html = `
+        <div class="card-title">${craft.title || craft.item}</div>
+        <div class="category">${craft.category}</div>
+      `;
+
+      // 🔽 NEW PART: handle cube vs crafted recipes
+      if (craft.type === 'cube') {
+        html += `
+
+          <div class="section">
+            <div class="section-title">Ingredients</div>
+            ${(craft.ingredients || [])
+              .map(i => `<div class="list-item ingredient">• ${i}</div>`)
+              .join('')}
+          </div>
+        ${craft.description ? `
+          <div class="section">
+            <div class="section-title">Description</div>
+            <div class="list-item cube-description">${craft.description}</div>
+          </div>
+        ` : ''}
+        ${craft.result ? `
+          <div class="section">
+            <div class="section-title">Result</div>
+            <div class="list-item mod">${craft.result}</div>
+          </div>
+        ` : ''}
+
+        `;
+      } else {
+        // 🔽 EXISTING crafted-item layout (unchanged)
+        html += `
+          <div class="section">
+            <div class="section-title">Base</div>
+            <div class="list-item">${craft.base}</div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">Ingredients</div>
+            ${(craft.ingredients || [])
+              .map(i => `<div class="list-item ingredient">• ${i}</div>`)
+              .join('')}
+          </div>
+
+          <div class="section">
+            <div class="section-title">Mods</div>
+            ${(craft.mods || [])
+              .map(m => `<div class="list-item mod">• ${m}</div>`)
+              .join('')}
+          </div>
+        `;
+      }
+
+      card.innerHTML = html;
+
+      grid.appendChild(card);
+      cards.push(card);
+    });
+  });
+</script>
+
+
+</body>
+</html>
