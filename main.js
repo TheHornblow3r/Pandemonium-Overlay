@@ -1,4 +1,4 @@
-const { app, BrowserWindow, globalShortcut, ipcMain, screen } = require('electron');
+const { app, BrowserWindow, globalShortcut, ipcMain, screen, Tray, Menu } = require('electron');
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
@@ -16,7 +16,9 @@ let visible = false;
 let isCondensedMode = false;
 let condensed = true;
 let normalRuneWindowHeight = null;
-let breakpointWin;
+let breakpointWin; null;
+let tray = null;
+let isQuitting = false;
 
 
 
@@ -58,6 +60,23 @@ function savePosition(win, file) {
 async function fetchData() {
   const res = await fetch(DATA_URL);
   return await res.json();
+}
+function shutdownApp() {
+  isQuitting = true;
+
+  // 1. Unregister hotkeys
+  globalShortcut.unregisterAll();
+
+  // 2. Destroy ALL windows explicitly
+  const windows = BrowserWindow.getAllWindows();
+  windows.forEach(win => {
+    try {
+      win.destroy();
+    } catch {}
+  });
+
+  // 3. Force exit
+  app.exit(0);
 }
 
 // --------------------
@@ -200,11 +219,53 @@ function createBreakpointWindow() {
     }
   });
 
+  breakpointWin.setAlwaysOnTop(true, 'screen-saver');
+  breakpointWin.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+
   breakpointWin.loadFile('breakpoints.html');
 
   breakpointWin.on('closed', () => {
     breakpointWin = null;
   });
+}
+// --------------------
+// CREATE TRAY
+// --------------------
+function createTray() {
+  if (tray) return;
+
+  tray = new Tray(path.join(__dirname, 'assets/icon.ico'));
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show All Overlays',
+      click: () => {
+        const windows = [
+          win,
+          corruptionWin,
+          runewordWin,
+          craftingWin,
+          breakpointWin
+        ];
+
+        windows.forEach(w => {
+          if (w && !w.isVisible()) {
+            w.showInactive();
+          }
+        });
+      }
+    },
+    { type: 'separator' },
+{
+  label: 'Close Overlay',
+  click: () => {
+    shutdownApp();
+  }
+}
+  ]);
+
+  tray.setToolTip('Pandemonium Overlay');
+  tray.setContextMenu(contextMenu);
 }
 
 // --------------------
@@ -223,6 +284,8 @@ app.whenReady().then(async () => {
   createCorruptionWindow();
   createRunewordWindow();
   createCraftingWindow();
+  createTray();
+
 
   const payload = await fetchData();
 
@@ -308,25 +371,9 @@ globalShortcut.register('Control+Shift+H', () => {
   }
 });
 
-ipcMain.on('resize-condensed', (event, height) => {
+ipcMain.on('close-current-window', (event) => {
   const win = BrowserWindow.fromWebContents(event.sender);
-  if (!win) return;
-
-  const display = screen.getPrimaryDisplay();
-  const maxHeight = display.workAreaSize.height - 40;
-
-  const finalHeight = Math.min(Math.ceil(height), maxHeight);
-  const [width] = win.getSize();
-
-  win.setSize(width, finalHeight, true);
-});
-
-ipcMain.on('resize-normal', event => {
-  const win = BrowserWindow.fromWebContents(event.sender);
-  if (!win || !normalRuneWindowHeight) return;
-
-  const [width] = win.getSize();
-  win.setSize(width, normalRuneWindowHeight, true);
+  if (win) win.hide(); // preferred for overlays
 });
 
 
@@ -335,6 +382,16 @@ ipcMain.on('resize-normal', event => {
 // --------------------
 // CLEANUP
 // --------------------
+app.on('window-all-closed', (e) => {
+  if (!isQuitting) {
+    e.preventDefault(); // keep tray alive
+  }
+});
+
+app.on('before-quit', () => {
+  globalShortcut.unregisterAll();
+});
+
 app.on('will-quit', () => {
   globalShortcut.unregisterAll();
 });

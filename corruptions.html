@@ -140,11 +140,40 @@
   li:last-child {
     border-bottom: none;
   }
+.window-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
+  height: 18px;
+  padding: 0 6px;
+
+  background: rgba(20, 20, 20, 0.95);
+
+  -webkit-app-region: drag;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 4px;
+
+  -webkit-app-region: no-drag;
+}
+
+.close-btn:hover {
+  color: #ff5c5c;
+}
 </style>
 </head>
 
 <body>
+  <div class="window-controls">
+  <button class="close-btn" onclick="closeOverlay()">✕</button>
+</div>
   <div class="drag-handle">
     <div class="title">Orb of Corruption</div>
     <div class="subtitle">Path of Diablo Outcomes</div>
@@ -279,7 +308,11 @@
 
 
   <script>
+const { ipcRenderer } = require('electron');
 
+function closeOverlay() {
+  ipcRenderer.send('close-current-window');
+}
 </script>
 
 </body>

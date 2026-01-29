@@ -136,10 +136,40 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #666;
     }
+    .window-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  height: 18px;
+  padding: 0 6px;
+
+
+
+  -webkit-app-region: drag;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 4px;
+
+  -webkit-app-region: no-drag;
+}
+
+.close-btn:hover {
+  color: #ff5c5c;
+}
   </style>
 </head>
 
 <body>
+  <div class="window-controls">
+  <button class="close-btn" onclick="closeOverlay()">✕</button>
+</div>
   <div class="container">
     <div class="title-bar">Runewords</div>
     <div class="subtitle">Path of Diablo Runewords</div>
@@ -270,6 +300,10 @@ tabs.forEach(tab => {
   });
 });
   
+function closeOverlay() {
+  const { ipcRenderer } = require('electron');
+  ipcRenderer.send('close-current-window');
+}
   </script>
 </body>
 </html>

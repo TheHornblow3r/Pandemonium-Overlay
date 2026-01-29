@@ -222,10 +222,40 @@
       margin-top: 2px;
       margin-bottom: 8px;
   }
+  .window-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  height: 18px;
+  padding: 0 6px;
+
+  background: rgba(20, 20, 20, 0.95);
+
+  -webkit-app-region: drag;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 4px;
+
+  -webkit-app-region: no-drag;
+}
+
+.close-btn:hover {
+  color: #ff5c5c;
+}
 </style>
 </head>
 
 <body>
+  <div class="window-controls">
+  <button class="close-btn" onclick="closeOverlay()">✕</button>
+</div>
 <div id="content"> 
 <div class="drag-handle">
   <div class="title">Rough Rune Prices</div>
@@ -245,6 +275,9 @@ let rendered = false;
 
 function getContentHeight() {
   return document.getElementById('content').scrollHeight;
+}
+function closeOverlay() {
+  ipcRenderer.send('close-current-window');
 }
 
 /* --------------------
@@ -347,6 +380,10 @@ ipcRenderer.on('condensed-state', (_, isCondensed) => {
         <span>Cube Recipes</span>
         <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd>
       </div>      
+        <div class="help-item">
+        <span>Breakpoints</span>
+        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd>
+      </div>  
     </div>
   </div>
 </div>
