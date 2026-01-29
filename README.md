@@ -11,8 +11,7 @@ No alt-tabbing. No spreadsheets. Just fast, always-available information while y
 Follow me on twitch.tv if you have questions or changes & want to ask me live.<br>
 Follow him online at: [https://www.twitch.tv/Thehornblower](https://www.twitch.tv/thehornblower)
 
-I'm open to any advice/changes you would like to see in the filter **(DM me on discord)**
-An Electron-based overlay for Path of Diablo.
+I'm open to any advice/changes you would like to see in the overlay **(DM me on discord)**
 
 ![PoD_qxR9SrtZHm](https://github.com/user-attachments/assets/b7e4ff65-606a-4076-a571-7f44bbc88cb0)
 ---
