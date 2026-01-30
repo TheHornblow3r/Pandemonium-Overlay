@@ -24,16 +24,25 @@
   "appId": "com.thehornblow3r.pandemoniumoverlay",
   "productName": "Pandemonium Overlay",
   "icon": "assets/icon.ico",
+
   "files": [
-  "**/*",
-  "!node_modules/.cache"
-],
+    "**/*",
+    "!node_modules/.cache"
+  ],
+
   "win": {
     "target": ["nsis", "portable"]
   },
+
   "nsis": {
+    "artifactName": "Pandemonium-Overlay-Setup-${version}.exe",
     "oneClick": false,
     "allowToChangeInstallationDirectory": true
+  },
+
+  "portable": {
+    "artifactName": "Pandemonium-Overlay-Portable-${version}.exe"
   }
 }
+
 }
