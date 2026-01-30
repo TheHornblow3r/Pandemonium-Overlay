@@ -1,6 +1,6 @@
 {
   "name": "pandemonium-overlay",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An in-game overlay for Path of Diablo providing rune prices, runewords, corruptions, and crafting information.",
   "author": "TheHornblow3r",
   "license": "MIT",
