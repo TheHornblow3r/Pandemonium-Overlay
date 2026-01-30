@@ -57,7 +57,7 @@ All hotkeys work while Path of Diablo is running.
 
 | Overlay | Hotkey |
 |------|------|
-| Rune Prices | Ctrl + Shift + O |
+| Rune Prices | Ctrl + Shift + D |
 | Runewords | Ctrl + Shift + R |
 | Corruptions | Ctrl + Shift + C |
 | Crafting Recipes | Ctrl + Shift + V |
