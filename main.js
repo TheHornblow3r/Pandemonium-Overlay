@@ -35,7 +35,7 @@ const CORRUPTION_WIDTH = 1000;
 const CORRUPTION_HEIGHT = 650;
 const RUNEWORDS_WIDTH = 1300;
 const RUNEWORDS_HEIGHT = 600;
-const DATA_URL = 'https://raw.githubusercontent.com/TheHornblow3r/Pandemonium-Overlay/main/data/rune-prices.json';
+const RUNE_DATA_URL = 'https://raw.githubusercontent.com/TheHornblow3r/Pandemonium-Overlay/main/data/rune-prices.json';
 
 async function loadRunePrices() {
   try {
@@ -70,7 +70,7 @@ function savePosition(win, file) {
 }
 
 async function fetchData() {
-  const res = await fetch(DATA_URL);
+  const res = await fetch(RUNE_DATA_URL);
   return await res.json();
 }
 function shutdownApp() {
