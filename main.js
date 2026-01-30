@@ -2,6 +2,10 @@ const { app, BrowserWindow, globalShortcut, ipcMain, screen, Tray, Menu } = requ
 const fetch = require('node-fetch');
 const fs = require('fs');
 const path = require('path');
+const { dialog, shell } = require('electron');
+const CURRENT_VERSION = app.getVersion();
+const RELEASES_URL = 'https://api.github.com/repos/TheHornblow3r/Pandemonium-Overlay/releases/latest';
+
 
 app.commandLine.appendSwitch('disable-overlay-scrollbar');
 
@@ -27,15 +31,23 @@ let isQuitting = false;
 // --------------------
 const WIDTH = 300;
 const HEIGHT = 500;
-
 const CORRUPTION_WIDTH = 1000;
 const CORRUPTION_HEIGHT = 650;
-
 const RUNEWORDS_WIDTH = 1300;
 const RUNEWORDS_HEIGHT = 600;
+const DATA_URL = 'https://raw.githubusercontent.com/TheHornblow3r/Pandemonium-Overlay/main/data/rune-prices.json';
 
-const DATA_URL =
-  'https://raw.githubusercontent.com/TheHornblow3r/Pandemonium-Overlay/main/rune-prices.json';
+async function loadRunePrices() {
+  try {
+    const res = await fetch(RUNE_DATA_URL);
+    if (!res.ok) throw new Error('Failed to fetch rune prices');
+    return await res.json();
+  } catch (err) {
+    console.error('Rune price load failed:', err.message);
+    return {};
+  }
+}
+
 
 let POS_FILE;
 let CORRUPTION_POS_FILE;
@@ -78,6 +90,33 @@ function shutdownApp() {
   // 3. Force exit
   app.exit(0);
 }
+// Updater
+async function checkForUpdates() {
+  try {
+    const res = await fetch(RELEASES_URL);
+    const data = await res.json();
+
+    if (!data.tag_name) return;
+
+    const latest = data.tag_name.replace(/^v/, '');
+
+    if (latest !== CURRENT_VERSION) {
+      dialog.showMessageBox({
+        type: 'info',
+        buttons: ['Download', 'Later'],
+        defaultId: 0,
+        message: `New version available: v${latest}`,
+        detail: `You are running v${CURRENT_VERSION}.`
+      }).then(result => {
+        if (result.response === 0) {
+          shell.openExternal(data.html_url);
+        }
+      });
+    }
+  } catch (err) {
+    console.log('Update check failed:', err.message);
+  }
+}
 
 // --------------------
 // RUNE WINDOW
@@ -106,6 +145,16 @@ function createMainWindow() {
   win.setFocusable(false);
 
   win.loadFile('index.html');
+  
+  win.webContents.on('did-finish-load', async () => {
+  const runePrices = await loadRunePrices();
+
+  win.webContents.send('rune-data', {
+    runes: runePrices,
+    updated: new Date().toISOString().split('T')[0]
+  });
+});
+
   win.hide();
 }
 
@@ -285,6 +334,8 @@ app.whenReady().then(async () => {
   createRunewordWindow();
   createCraftingWindow();
   createTray();
+  checkForUpdates();
+
 
 
   const payload = await fetchData();
@@ -303,7 +354,7 @@ app.whenReady().then(async () => {
 // --------------------
 
   // RUNE PRICE HOTKEY
-  globalShortcut.register('Control+Shift+O', () => {
+  globalShortcut.register('Control+Shift+D', () => {
     visible ? win.hide() : win.showInactive();
     visible = !visible;
   });
