@@ -269,8 +269,6 @@ const { ipcRenderer } = require('electron');
 const list = document.getElementById('list');
 const lastUpdated = document.getElementById('last-updated');
 
-let rendered = false;
-
 function getContentHeight() {
   return document.getElementById('content').scrollHeight;
 }
@@ -282,10 +280,16 @@ function closeOverlay() {
    RUNE DATA
 -------------------- */
 ipcRenderer.on('rune-data', (_, payload) => {
-  if (rendered) return;
-  rendered = true;
+  // 🔒 Validate payload shape
+  if (!payload || typeof payload !== 'object') return;
+  if (!payload.runes || typeof payload.runes !== 'object') return;
 
-  const { runes, updated } = payload;
+  list.innerHTML = ''; // clear old data safely
+
+  const runes = payload.runes;
+  const updated = payload._meta?.updated;
+
+
 
   if (updated) {
     const [y, m, d] = updated.split('-').map(Number);

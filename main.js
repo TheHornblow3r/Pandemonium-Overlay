@@ -20,12 +20,42 @@ let visible = false;
 let isCondensedMode = false;
 let condensed = true;
 let normalRuneWindowHeight = null;
-let breakpointWin; null;
+let breakpointWin = null;
 let tray = null;
 let isQuitting = false;
+let splashWin;
+let splashStartTime = 0;
 
+function createSplashWindow() {
+  splashStartTime = Date.now();
 
+  splashWin = new BrowserWindow({
+    width: 420,
+    height: 260,
+    frame: false,
+    transparent: true,
+    alwaysOnTop: true,
+    resizable: false,
+    movable: false,
+    show: false,
+    skipTaskbar: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
 
+  splashWin.loadFile('splash.html');
+
+  splashWin.once('ready-to-show', () => {
+    splashWin.show();
+
+      splashWin.webContents.send(
+      'splash-version',
+      app.getVersion()
+    );  
+  });
+}
 // --------------------
 // CONFIG
 // --------------------
@@ -69,10 +99,6 @@ function savePosition(win, file) {
   fs.writeFileSync(file, JSON.stringify({ x, y }));
 }
 
-async function fetchData() {
-  const res = await fetch(RUNE_DATA_URL);
-  return await res.json();
-}
 function shutdownApp() {
   isQuitting = true;
 
@@ -149,10 +175,9 @@ function createMainWindow() {
   win.webContents.on('did-finish-load', async () => {
   const runePrices = await loadRunePrices();
 
-  win.webContents.send('rune-data', {
-    runes: runePrices,
-    updated: new Date().toISOString().split('T')[0]
-  });
+win.webContents.send('rune-data', runePrices);
+
+
 });
 
   win.hide();
@@ -322,32 +347,48 @@ function createTray() {
 // --------------------
 
 app.whenReady().then(async () => {
+  // 🔹 SHOW SPLASH IMMEDIATELY
+  createSplashWindow();
+
   POS_FILE = path.join(app.getPath('userData'), 'overlay-position.json');
   CORRUPTION_POS_FILE = path.join(
     app.getPath('userData'),
     'corruption-position.json'
   );
 
-  // 🔥 THESE THREE LINES ARE CRITICAL
+  // 🔹 CREATE WINDOWS + TRAY
   createMainWindow();
   createCorruptionWindow();
   createRunewordWindow();
   createCraftingWindow();
   createTray();
+
   checkForUpdates();
 
+  // Close splash when main UI is ready
+win.webContents.once('did-finish-load', () => {
+  const MIN_SPLASH_TIME = 2000;
+  const elapsed = Date.now() - splashStartTime;
+
+  const closeSplash = () => {
+    if (splashWin) {
+      splashWin.close();
+      splashWin = null;
+    }
+  };
+
+  if (elapsed >= MIN_SPLASH_TIME) {
+    closeSplash();
+  } else {
+    setTimeout(closeSplash, MIN_SPLASH_TIME - elapsed);
+  }
+
+  win.webContents.send('condensed-state', condensed);
+});
 
 
-  const payload = await fetchData();
 
-  win.webContents.once('did-finish-load', () => {
-    win.webContents.send('rune-data', {
-      runes: payload.runes,
-      updated: payload._meta?.updated
-    });
 
-    win.webContents.send('condensed-state', condensed);
-  });
 
 // --------------------
 // HOTKEYS
