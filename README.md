@@ -1,6 +1,5 @@
 ![overlay-top-banner](https://github.com/user-attachments/assets/29bff7a2-1801-4911-a3d6-a6d952eec862)
 
-# Information & Credits
 **Pandemonium Overlay** is a lightweight in-game overlay for Path of Diablo that provides quick access to rune prices, runewords, corruptions, and crafting recipes — without leaving the game.
 
 No alt-tabbing. No spreadsheets. Just fast, always-available information while you play.<br><br>
@@ -57,7 +56,7 @@ All hotkeys work while Path of Diablo is running.
 
 | Overlay | Hotkey |
 |------|------|
-| Rune Prices | Ctrl + Shift + O |
+| Rune Prices | Ctrl + Shift + D |
 | Runewords | Ctrl + Shift + R |
 | Corruptions | Ctrl + Shift + C |
 | Crafting Recipes | Ctrl + Shift + V |
