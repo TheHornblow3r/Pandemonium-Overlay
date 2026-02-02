@@ -163,6 +163,26 @@
 .close-btn:hover {
   color: #ff5c5c;
 }
+.level-req {
+  font-size: 11px;
+  color: #aaa;
+  margin-bottom: 4px;
+}
+/* Remove number input arrows (Chrome, Edge, Safari) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* Remove number input arrows (Firefox) */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+
   </style>
 </head>
 
@@ -175,7 +195,31 @@
     <div class="subtitle">Path of Diablo Runewords</div>
   </div>
 
-    <input id="search" placeholder="Search runewords, runes, stats..." />
+    <div style="display:flex; gap:6px; margin-bottom:6px;">
+  <input
+    id="search"
+    placeholder="Search runewords, runes, stats..."
+    style="flex:1;"
+  />
+
+  <input
+    id="levelFilter"
+    type="number"
+    min="1"
+    max="99"
+    placeholder="Lvl"
+    title="Character level"
+    style="
+      width:60px;
+      background:#1e1e1e;
+      border:1px solid #333;
+      color:#fff;
+      border-radius:4px;
+      padding:6px;
+    "
+  />
+</div>
+
 
     <div id="filters">
       <button data-filter="all" class="active">All</button>
@@ -204,25 +248,75 @@
     const grid = document.getElementById('grid');
     const searchInput = document.getElementById('search');
     const filterButtons = document.querySelectorAll('#filters button');
+    const levelInput = document.getElementById('levelFilter');
+
+    levelInput.addEventListener('input', applyFilters);
+    
+
+
 
     let cards = [];
     let activeFilter = 'all';
 
-    function applyFilters() {
-      const query = searchInput.value.toLowerCase();
+function applyFilters() {
+  const query = searchInput.value.toLowerCase().trim();
+  const maxLevel = parseInt(levelInput.value, 10) || null;
 
-      cards.forEach(card => {
-        const matchesSearch = card.dataset.search.includes(query);
-        const bases = card.dataset.bases || '';
+  // 🧠 Sort cards so usable ones come first (only if level is set)
+  if (maxLevel !== null) {
+    cards.sort((a, b) => {
+      const aLevel = parseInt(a.dataset.level, 10) || 0;
+      const bLevel = parseInt(b.dataset.level, 10) || 0;
 
-        const matchesFilter =
-          activeFilter === 'all' ||
-          bases.includes(activeFilter);
+      const aUsable = aLevel <= maxLevel;
+      const bUsable = bLevel <= maxLevel;
 
-        card.style.display =
-          matchesSearch && matchesFilter ? '' : 'none';
-      });
+      // usable first
+      if (aUsable && !bUsable) return -1;
+      if (!aUsable && bUsable) return 1;
+
+      // otherwise keep original order
+      return 0;
+    });
+
+    // re-append cards in new order
+    cards.forEach(card => grid.appendChild(card));
+  }
+
+  cards.forEach(card => {
+    const textMatch =
+      !query || card.dataset.search.includes(query);
+
+    const cardLevel = parseInt(card.dataset.level, 10) || 0;
+    const levelMatch =
+      maxLevel === null || cardLevel <= maxLevel;
+
+    const bases = card.dataset.bases || '';
+    const baseMatch =
+      activeFilter === 'all' || bases.includes(activeFilter);
+
+    // ❌ Hard filters
+    if (!textMatch || !baseMatch) {
+      card.style.display = 'none';
+      return;
     }
+
+    // ✅ Show card
+    card.style.display = '';
+
+    // 🎯 Grey out if above character level
+    if (!levelMatch) {
+      card.style.opacity = '0.35';
+      card.style.pointerEvents = 'none';
+    } else {
+      card.style.opacity = '';
+      card.style.pointerEvents = '';
+    }
+  });
+}
+
+
+
 
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -243,6 +337,7 @@
           const card = document.createElement('div');
           card.className = 'card';
           card.dataset.bases = (rw.bases || []).map(b => b.toLowerCase()).join(' ');
+          card.dataset.level = rw.level || 0;
 
 
           const bases = (rw.bases || []).map(b => b.toLowerCase());
@@ -253,6 +348,7 @@
 
           const searchableText = [
             name,
+            `level ${rw.level || ''}`,
             rw.bases?.join(' ') || '',
             rw.runes?.join(' ') || '',
             podStats.join(' '),
@@ -263,13 +359,18 @@
 
           card.innerHTML = `
             <div class="title">${name}</div>
+
+            ${rw.level ? `<div class="level-req">Level Required: ${rw.level}</div>` : ''}
+
             <div class="bases">${(rw.bases || []).join(' / ')}</div>
             <div class="runes">${(rw.runes || []).join(' + ')}</div>
+
             <div class="stats">
               ${vanillaStats.map(s => `<div>${s}</div>`).join('')}
               ${podStats.map(s => `<div class="pod-stat">${s}</div>`).join('')}
             </div>
           `;
+
 
           cards.push(card);
           grid.appendChild(card);
