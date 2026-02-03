@@ -3,7 +3,7 @@
 **Pandemonium Overlay** is a lightweight in-game overlay for Path of Diablo that provides quick access to rune prices, runewords, corruptions, and crafting recipes — without leaving the game.
 
 No alt-tabbing. No spreadsheets. Just fast, always-available information while you play.<br><br>
-**Version:** v1.0.2<br>
+**Version:** v1.0.3<br>
 **Discord:** Thehornblower<br>
 **Credit:** Cripler (testing and recommendations)
 
