@@ -46,7 +46,14 @@ I'm open to any advice/changes you would like to see in the overlay **(DM me on 
 3. Double-click to run
 
 - No installation required  
-- Easy to remove  
+- Easy to remove
+  
+## 📥 Usage
+
+1. Run either the portable or setup .exe
+2. Splash screen should pop up while loading overlay with version # (Should see the app in system tray if running correctly)
+3. Once splash screen disappears use the hotkeys below to pull up windows
+4. To exit the program close it from system tray.
 
 ---
 
